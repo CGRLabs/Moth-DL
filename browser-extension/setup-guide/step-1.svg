@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="390" viewBox="0 0 900 390" role="img" aria-labelledby="title desc">
+  <title id="title">Open Chrome extensions</title>
+  <desc id="desc">Illustration of a browser address bar with chrome://extensions entered.</desc>
+  <rect width="900" height="390" rx="18" fill="#edf2ef"/>
+  <rect x="24" y="24" width="852" height="342" rx="14" fill="#fff" stroke="#cbd6ce" stroke-width="2"/>
+  <path d="M38 24h824a14 14 0 0 1 14 14v48H24V38a14 14 0 0 1 14-14" fill="#e7ece9"/>
+  <circle cx="52" cy="53" r="7" fill="#e16b62"/><circle cx="76" cy="53" r="7" fill="#e6bd55"/><circle cx="100" cy="53" r="7" fill="#66ad78"/>
+  <rect x="134" y="37" width="520" height="32" rx="16" fill="#fff" stroke="#b9c6bd"/>
+  <text x="155" y="59" font-family="Segoe UI,Arial,sans-serif" font-size="16" fill="#33443a">chrome://extensions</text>
+  <rect x="666" y="37" width="184" height="32" rx="16" fill="#f7faf8" stroke="#cbd6ce"/>
+  <text x="684" y="59" font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#607168">Extensions</text>
+  <text x="60" y="142" font-family="Segoe UI,Arial,sans-serif" font-size="26" font-weight="700" fill="#18231d">Extensions</text>
+  <rect x="60" y="164" width="780" height="1" fill="#e2e9e4"/>
+  <rect x="60" y="194" width="780" height="112" rx="12" fill="#f7f9f8" stroke="#dce5df"/>
+  <circle cx="108" cy="250" r="24" fill="#466f53"/>
+  <text x="108" y="258" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="22" font-weight="700" fill="#fff">M</text>
+  <text x="151" y="245" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="650" fill="#25342b">Next: turn on Developer mode</text>
+  <text x="151" y="273" font-family="Segoe UI,Arial,sans-serif" font-size="14" fill="#627168">The switch is at the top-right of this page.</text>
+  <path d="M724 144h90" stroke="#466f53" stroke-width="3"/><path d="m804 134 12 10-12 10" fill="none" stroke="#466f53" stroke-width="3"/>
+  <text x="682" y="128" font-family="Segoe UI,Arial,sans-serif" font-size="14" font-weight="700" fill="#466f53">address bar</text>
+</svg>

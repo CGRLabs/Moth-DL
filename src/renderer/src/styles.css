@@ -1,0 +1,1081 @@
+@import 'tailwindcss';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-brand-50: #e8f0eb;
+  --color-brand-100: #d5e4da;
+  --color-brand-200: #b9d2c2;
+  --color-brand-300: #9fc0aa;
+  --color-brand-400: #88ad94;
+  --color-brand-500: #71997e;
+  --color-brand-600: #5b8068;
+  --color-brand-700: #496753;
+  --color-brand-800: #344b3c;
+  --color-brand-900: #27392e;
+  --color-brand-950: #1b2820;
+
+  --color-ok: #91b99e;
+  --color-ok-soft: #26382d;
+  --color-warn: #d2b17a;
+  --color-warn-soft: #3a3225;
+  --color-bad: #d3908c;
+  --color-bad-soft: #3a2929;
+  --color-info: #91adbf;
+  --color-info-soft: #28333a;
+  --color-violet: #ad9bc5;
+
+  --color-cat-video: #ad9bc5;
+  --color-cat-audio: #c395a6;
+  --color-cat-document: #91adbf;
+  --color-cat-archive: #d2b17a;
+  --color-cat-executable: #d3908c;
+  --color-cat-image: #82b6aa;
+  --color-cat-installer: #a6a0c4;
+  --color-cat-other: #a8afb4;
+
+  --font-sans:
+    'Inter var', 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, 'SF Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+}
+
+:root {
+  color-scheme: dark;
+  --surface: #202842;
+  --surface-2: #242e49;
+  --surface-3: #2b3654;
+  --line: rgb(213 222 245 / 9%);
+  --line-strong: rgb(213 222 245 / 17%);
+  --ink: #d9ddda;
+  --ink-2: #b8bfbb;
+  --muted: #a4aba7;
+  --on-brand: #f5f7f5;
+  --brand-base: #71997e;
+  --shadow: 0 1px 2px rgb(0 0 0 / 22%), 0 8px 28px rgb(0 0 0 / 24%);
+  --graph-grid: rgb(213 222 245 / 8%);
+  --graph-fill-a: rgb(113 153 126 / 28%);
+  --graph-fill-b: rgb(113 153 126 / 1%);
+  --chunk-idle: rgb(213 222 245 / 10%);
+  --ambient-glow: rgb(91 110 225 / 13%);
+}
+
+:root[data-theme='amber'] {
+  --surface: #29261f;
+  --surface-2: #302c23;
+  --surface-3: #3a3428;
+  --line: rgb(246 232 202 / 10%);
+  --line-strong: rgb(246 232 202 / 18%);
+  --ink: #eee8dc;
+  --ink-2: #c9c0af;
+  --muted: #aaa18f;
+  --brand-base: #d8a84d;
+  --color-brand-100: #f0dfba;
+  --color-brand-300: #e5c47e;
+  --color-brand-500: #d8a84d;
+  --color-brand-600: #a87928;
+  --color-brand-700: #8b641f;
+  --color-brand-900: #503914;
+  --ambient-glow: rgb(245 166 35 / 13%);
+}
+
+:root[data-theme='light'] {
+  color-scheme: light;
+  --surface: #f1f2eb;
+  --surface-2: #f8f9f4;
+  --surface-3: #e7ebe3;
+  --line: rgb(36 64 51 / 11%);
+  --line-strong: rgb(36 64 51 / 19%);
+  --ink: #26372f;
+  --ink-2: #43554b;
+  --muted: #66776d;
+  --on-brand: #ffffff;
+  --brand-base: #28745b;
+  --color-brand-50: #e8f2ec;
+  --color-brand-100: #d4e8dc;
+  --color-brand-200: #b6d8c7;
+  --color-brand-300: #8fbea6;
+  --color-brand-400: #5d9c7d;
+  --color-brand-500: #28745b;
+  --color-brand-600: #23634f;
+  --color-brand-700: #1d5141;
+  --color-brand-800: #194236;
+  --color-brand-900: #15372d;
+  --color-brand-950: #0e241d;
+  --color-ok: #28745b;
+  --color-ok-soft: #dcece2;
+  --color-warn: #8b621e;
+  --color-warn-soft: #f3ead4;
+  --color-bad: #a74742;
+  --color-bad-soft: #f5e1de;
+  --color-info: #426b83;
+  --color-info-soft: #e0edf2;
+  --ambient-glow: rgb(40 116 91 / 8%);
+}
+
+@theme inline {
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-surface-3: var(--surface-3);
+  --color-line: var(--line);
+  --color-line-strong: var(--line-strong);
+  --color-ink: var(--ink);
+  --color-ink-2: var(--ink-2);
+  --color-muted: var(--muted);
+  --color-on-brand: var(--on-brand);
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* A download manager is a tool, not a document: chrome should not be
+     selectable, but file names and paths must stay selectable. */
+  user-select: none;
+  overflow: hidden;
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.workspace-backdrop {
+  background-color: var(--surface);
+  background-image: radial-gradient(ellipse 110% 58% at 50% 0%, var(--ambient-glow), transparent);
+}
+
+.selectable {
+  user-select: text;
+}
+
+/* Slim scrollbars that respect the theme. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--line-strong) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--line-strong);
+  border-radius: 9999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--muted);
+}
+
+@keyframes moth-fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px) scale(0.995);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes moth-slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes moth-indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
+}
+
+@keyframes moth-pulse-soft {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.45;
+  }
+}
+
+.animate-fade-in {
+  animation: moth-fade-in 140ms ease-out;
+}
+.animate-slide-down {
+  animation: moth-slide-down 160ms ease-out;
+}
+.animate-indeterminate {
+  animation: moth-indeterminate 1.1s ease-in-out infinite;
+}
+.animate-pulse-soft {
+  animation: moth-pulse-soft 2s ease-in-out infinite;
+}
+
+.download-visualizer.flow-stage {
+  --flow-glow: color-mix(in srgb, var(--brand-base) 70%, white 20%);
+  --flow-rail: color-mix(in srgb, var(--line-strong) 78%, transparent);
+  --flow-rail-active: color-mix(in srgb, var(--brand-base) 78%, #edf4fb 22%);
+  --flow-surface: var(--surface);
+  background:
+    radial-gradient(ellipse 72% 42% at 50% 0%, var(--ambient-glow), transparent 66%),
+    radial-gradient(ellipse at 50% 50%, color-mix(in srgb, var(--brand-base) 5%, transparent), transparent 65%),
+    var(--flow-surface);
+}
+
+.flow-stage::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(var(--graph-grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--graph-grid) 1px, transparent 1px);
+  background-size: 40px 40px;
+  content: '';
+  mask-image: radial-gradient(ellipse at center, #000 12%, transparent 84%);
+}
+
+.flow-hud,
+.flow-toolbar {
+  position: absolute;
+  z-index: 10;
+  top: 1.1rem;
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface) 90%, transparent);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 18%);
+  backdrop-filter: blur(10px);
+}
+
+.flow-hud {
+  left: 1.25rem;
+  min-height: 34px;
+  gap: 0.65rem;
+  padding: 0 0.8rem;
+  color: var(--ink-2);
+  font: 11px var(--font-mono);
+  letter-spacing: 0.02em;
+}
+
+.flow-hud > span:first-child {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.flow-hud i {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+
+.flow-hud small {
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.flow-toolbar {
+  right: 1.25rem;
+  gap: 0.25rem;
+  padding: 0.25rem;
+}
+
+.flow-toolbar-button {
+  display: grid;
+  width: 27px;
+  height: 27px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--ink-2);
+  transition: background 140ms ease, color 140ms ease;
+}
+
+.flow-toolbar-button:hover {
+  background: var(--surface-3);
+  color: var(--ink);
+}
+
+.flow-toolbar-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.38;
+}
+
+.flow-toolbar-button:disabled:hover {
+  background: transparent;
+  color: var(--ink-2);
+}
+
+.flow-canvas {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  cursor: grab;
+  scrollbar-width: none;
+}
+
+.flow-canvas::-webkit-scrollbar {
+  display: none;
+}
+
+.flow-canvas-panning {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.flow-map {
+  position: relative;
+  width: min(100%, 1120px);
+  min-height: 100%;
+  margin: 0 auto;
+  padding: 4.5rem 1.25rem 5rem;
+  box-sizing: border-box;
+}
+
+.flow-ingress {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 120px;
+  height: 124px;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.flow-ingress-orbit {
+  position: absolute;
+  top: 0;
+  width: 76px;
+  height: 76px;
+  border: 1px solid color-mix(in srgb, var(--brand-base) 38%, transparent);
+  border-radius: 50%;
+  box-shadow: 0 0 24px color-mix(in srgb, var(--brand-base) 14%, transparent), inset 0 0 18px color-mix(in srgb, var(--brand-base) 8%, transparent);
+  animation: flow-orbit 4.4s ease-in-out infinite;
+}
+
+.flow-ingress-core {
+  position: relative;
+  display: grid;
+  width: 56px;
+  height: 56px;
+  place-items: center;
+  margin-top: 10px;
+  border: 1px solid color-mix(in srgb, var(--brand-base) 55%, white 25%);
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 30%, color-mix(in srgb, var(--brand-base) 22%, var(--surface-2)), var(--surface) 72%);
+  box-shadow: 0 0 22px color-mix(in srgb, var(--brand-base) 24%, transparent), inset 0 0 16px rgb(255 255 255 / 7%);
+  color: var(--ink);
+  font: 700 12px var(--font-mono);
+  letter-spacing: 0.16em;
+  cursor: pointer;
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.flow-ingress-core:hover,
+.flow-ingress-core[aria-expanded='true'] {
+  border-color: color-mix(in srgb, var(--brand-base) 80%, white 20%);
+  box-shadow: 0 0 28px color-mix(in srgb, var(--brand-base) 38%, transparent), inset 0 0 18px rgb(255 255 255 / 9%);
+  transform: translateY(-1px);
+}
+
+.flow-wan-panel {
+  position: absolute;
+  z-index: 9;
+  top: 84px;
+  left: 50%;
+  display: grid;
+  width: 224px;
+  gap: 7px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--surface-2) 96%, transparent);
+  padding: 11px;
+  box-shadow: 0 12px 32px rgb(0 0 0 / 26%);
+  transform: translateX(-50%);
+}
+
+.flow-wan-panel label {
+  color: var(--ink);
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.flow-wan-panel select {
+  width: 100%;
+  border: 1px solid var(--line-strong);
+  border-radius: 6px;
+  background: var(--surface);
+  padding: 6px 7px;
+  color: var(--ink);
+  font-size: 10px;
+}
+
+.flow-wan-panel small {
+  color: var(--muted);
+  font-size: 9px;
+}
+
+.flow-ingress-caption {
+  margin-top: 9px;
+  color: var(--muted);
+  font: 8px var(--font-mono);
+  letter-spacing: 0.2em;
+}
+
+.flow-ingress::after {
+  position: absolute;
+  top: 66px;
+  left: 50%;
+  width: 2px;
+  height: 58px;
+  background: linear-gradient(var(--brand-base), color-mix(in srgb, var(--brand-base) 20%, transparent));
+  box-shadow: 0 0 11px color-mix(in srgb, var(--brand-base) 48%, transparent);
+  content: '';
+  transform: translateX(-50%);
+}
+
+.flow-ingress-output {
+  position: absolute;
+  z-index: 2;
+  top: 121px;
+  left: calc(50% - 3px);
+  width: 6px;
+  height: 6px;
+  border: 1px solid color-mix(in srgb, var(--brand-base) 70%, white 30%);
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--brand-base) 55%, transparent);
+}
+
+.flow-tree {
+  position: relative;
+  --flow-row-height: 258px;
+}
+
+.flow-row {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 64px minmax(0, 1fr);
+  align-items: center;
+  height: var(--flow-row-height);
+}
+
+.flow-track-svg {
+  position: absolute;
+  z-index: 3;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+.flow-trunk-track,
+.flow-branch-track {
+  fill: none;
+  stroke: var(--flow-rail);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.flow-trunk-track {
+  stroke: color-mix(in srgb, var(--brand-base) 50%, var(--flow-rail));
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--brand-base) 18%, transparent));
+}
+
+.flow-branch-track {
+  stroke-width: 1;
+  transition: stroke 180ms ease, opacity 180ms ease;
+}
+
+.flow-branch-track[data-flow='active'] {
+  stroke: var(--flow-rail-active);
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--brand-base) 40%, transparent));
+}
+
+.flow-branch-track[data-flow='idle'] {
+  opacity: 0.72;
+}
+
+.flow-packet {
+  stroke: color-mix(in srgb, var(--brand-base) 68%, white 32%);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--brand-base) 42%, transparent));
+}
+
+.flow-packet-glow {
+  stroke: color-mix(in srgb, var(--brand-base) 66%, transparent);
+  stroke-width: 6;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+  opacity: 0.5;
+  filter: blur(2px);
+}
+
+.flow-packet-head {
+  fill: color-mix(in srgb, var(--brand-base) 68%, white 32%);
+  stroke: var(--surface);
+  stroke-width: 0.45;
+  vector-effect: non-scaling-stroke;
+  filter: drop-shadow(0 0 4px color-mix(in srgb, var(--brand-base) 48%, transparent));
+}
+
+.flow-route-measure {
+  fill: none;
+  stroke: none;
+}
+
+.flow-node {
+  position: relative;
+  z-index: 4;
+  display: flex;
+  width: 220px;
+  height: 220px;
+  flex-direction: column;
+  align-items: center;
+  justify-self: center;
+  cursor: grab;
+  padding: 15px 14px 12px;
+  border: 1px solid rgb(113 160 184 / 28%);
+  border-radius: 18px;
+  background:
+    radial-gradient(ellipse at 50% 34%, color-mix(in srgb, var(--brand-base) 8%, transparent), transparent 64%),
+    linear-gradient(145deg, var(--surface-2), var(--surface));
+  box-shadow: 0 14px 38px rgb(0 0 0 / 26%), inset 0 1px rgb(255 255 255 / 3%);
+  transform: translate3d(var(--flow-drag-x, 0px), var(--flow-drag-y, 0px), 0);
+  transition: border-color 180ms ease, box-shadow 180ms ease, opacity 180ms ease, transform 180ms ease;
+}
+
+.flow-node-left {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.flow-node-right {
+  grid-column: 3;
+  grid-row: 1;
+}
+
+.flow-node-active {
+  border-color: color-mix(in srgb, var(--brand-base) 58%, white 18%);
+  box-shadow: 0 0 28px color-mix(in srgb, var(--brand-base) 16%, transparent), 0 14px 38px rgb(0 0 0 / 30%), inset 0 0 25px rgb(255 255 255 / 2%);
+}
+
+.flow-node-idle {
+  opacity: 0.72;
+}
+
+.flow-node:hover,
+.flow-node:focus-within,
+.flow-node-expanded {
+  z-index: 6;
+  border-color: color-mix(in srgb, var(--brand-base) 66%, white 24%);
+  box-shadow: 0 0 32px color-mix(in srgb, var(--brand-base) 14%, transparent), 0 14px 38px rgb(0 0 0 / 42%);
+  opacity: 1;
+  transform: translate3d(var(--flow-drag-x, 0px), calc(var(--flow-drag-y, 0px) - 2px), 0);
+}
+
+.flow-node-dragging {
+  cursor: grabbing;
+  transition: none;
+  transform: translate3d(var(--flow-drag-x, 0px), var(--flow-drag-y, 0px), 0);
+}
+
+.flow-node-dragging button,
+.flow-node-dragging select {
+  cursor: grabbing;
+}
+
+.flow-node-port {
+  position: absolute;
+  top: calc(50% - 5px);
+  width: 9px;
+  height: 9px;
+  border: 1px solid color-mix(in srgb, var(--brand-base) 70%, white 30%);
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: 0 0 8px color-mix(in srgb, var(--brand-base) 42%, transparent);
+}
+
+.flow-node-left .flow-node-port {
+  right: -5px;
+}
+
+.flow-node-right .flow-node-port {
+  left: -5px;
+}
+
+.flow-node-heading {
+  display: flex;
+  width: 100%;
+  min-width: 0;
+  align-items: center;
+  gap: 8px;
+}
+
+.flow-node-drag-handle {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.flow-node-drag-handle:focus-visible {
+  border-radius: 6px;
+  outline: 2px solid color-mix(in srgb, var(--brand-base) 68%, white 32%);
+  outline-offset: 4px;
+}
+
+.flow-node-icon {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 auto;
+  place-items: center;
+  border: 1px solid rgb(105 158 180 / 22%);
+  border-radius: 8px;
+  background: color-mix(in srgb, var(--brand-base) 9%, transparent);
+  color: color-mix(in srgb, var(--brand-base) 72%, white 28%);
+}
+
+.flow-node-name {
+  overflow: hidden;
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.flow-progress {
+  --flow-progress: 0%;
+  display: grid;
+  width: 105px;
+  height: 105px;
+  flex: 0 0 auto;
+  place-items: center;
+  margin-top: 10px;
+  border-radius: 50%;
+  background: conic-gradient(from -90deg, var(--brand-base) var(--flow-progress), rgb(102 139 157 / 15%) var(--flow-progress));
+  box-shadow: 0 0 18px color-mix(in srgb, var(--brand-base) 18%, transparent);
+}
+
+.flow-progress-inner {
+  display: flex;
+  width: 89px;
+  height: 89px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgb(110 169 190 / 10%);
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--surface-2), var(--surface) 75%);
+}
+
+.flow-progress-value {
+  color: var(--ink);
+  font: 500 25px var(--font-mono);
+  letter-spacing: -0.08em;
+}
+
+.flow-progress-value small {
+  margin-left: 2px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.flow-progress-status {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.flow-node-rate {
+  display: flex;
+  width: 100%;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 7px;
+  color: var(--ink-2);
+  font: 600 11px var(--font-mono);
+}
+
+.flow-node-engine {
+  width: 100%;
+  margin-top: 4px;
+  overflow: hidden;
+  color: var(--muted);
+  font: 500 9.5px var(--font-mono);
+  text-align: center;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.flow-node-eta {
+  color: var(--muted);
+  font-size: 9px;
+  font-weight: 400;
+}
+
+.flow-node-actions {
+  position: absolute;
+  right: 10px;
+  bottom: 9px;
+  left: 10px;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 140ms ease, transform 140ms ease;
+}
+
+.flow-node:hover .flow-node-actions,
+.flow-node:focus-within .flow-node-actions,
+.flow-node-expanded .flow-node-actions {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+.flow-details-action {
+  display: inline-flex;
+  height: 29px;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--surface-2);
+  padding: 0 8px;
+  color: var(--ink-2);
+  font-size: 9px;
+  font-weight: 600;
+  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+
+.flow-details-action:hover {
+  border-color: color-mix(in srgb, var(--brand-base) 60%, white 24%);
+  background: var(--surface-3);
+  color: var(--ink);
+}
+
+.flow-icon-action {
+  display: grid;
+  width: 29px;
+  height: 29px;
+  place-items: center;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--surface-2);
+  color: var(--ink-2);
+  transition: background 120ms ease, border-color 120ms ease, color 120ms ease;
+}
+
+.flow-icon-action:hover {
+  border-color: color-mix(in srgb, var(--brand-base) 60%, white 24%);
+  background: var(--surface-3);
+  color: var(--ink);
+}
+
+.flow-icon-danger:hover {
+  border-color: rgb(221 128 125 / 55%);
+  color: #efaaa5;
+}
+
+.flow-node-detail {
+  position: absolute;
+  z-index: 8;
+  right: 8px;
+  bottom: 44px;
+  left: 8px;
+  display: grid;
+  gap: 8px;
+  padding: 10px;
+  border: 1px solid var(--line-strong);
+  border-radius: 10px;
+  background: var(--surface-2);
+  box-shadow: 0 8px 28px rgb(0 0 0 / 42%);
+  color: var(--ink-2);
+  font: 9px var(--font-mono);
+}
+
+.flow-node-detail label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px;
+}
+
+.flow-node-detail select {
+  max-width: 112px;
+  border: 1px solid var(--line-strong);
+  border-radius: 5px;
+  background: var(--surface);
+  padding: 4px 5px;
+  color: var(--ink);
+  font-size: 9px;
+}
+
+.flow-empty {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: fit-content;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin: 18px auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--surface-2) 92%, transparent);
+  padding: 18px 26px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.flow-empty button {
+  color: var(--color-brand-500);
+  font-size: 11px;
+}
+
+@keyframes flow-orbit {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.08);
+  }
+}
+
+@media (max-width: 680px) {
+  .flow-hud {
+    top: 0.75rem;
+    left: 0.7rem;
+    gap: 0.4rem;
+    padding: 0 0.55rem;
+    font-size: 9px;
+  }
+
+  .flow-toolbar {
+    top: 0.75rem;
+    right: 0.7rem;
+  }
+
+  .flow-map {
+    width: 680px;
+    margin-left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .flow-node {
+    width: 190px;
+    height: 205px;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flow-ingress-orbit {
+    animation: none;
+  }
+}
+
+details[open] > .details-content {
+  animation: moth-slide-down 160ms ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Focus ring only for keyboard users. */
+:focus-visible {
+  outline: 2px solid var(--color-brand-500);
+  outline-offset: 2px;
+}
+
+/* The primary action gets a subtle sheen so it reads as the focal point. */
+.btn-primary {
+  background: var(--color-brand-600);
+  color: var(--on-brand);
+  box-shadow: 0 1px 0 rgb(255 255 255 / 8%) inset, 0 1px 3px rgb(0 0 0 / 18%);
+}
+
+/*
+ * Status and category tones.
+ *
+ * Components set `data-status` or `data-category` and inherit the tone, rather
+ * than choosing colours in JSX. That keeps a single place to audit contrast and
+ * means a new status is a one-line addition here instead of a hunt through
+ * components.
+ */
+[data-status] {
+  --tone-fg: var(--color-info);
+  --tone-bg: var(--color-info-soft);
+}
+
+[data-status='completed'] {
+  --tone-fg: var(--color-ok);
+  --tone-bg: var(--color-ok-soft);
+}
+
+[data-status='failed'],
+[data-status='canceled'] {
+  --tone-fg: var(--color-bad);
+  --tone-bg: var(--color-bad-soft);
+}
+
+[data-status='queued'],
+[data-status='scheduled'],
+[data-status='connecting'],
+[data-status='paused'] {
+  --tone-fg: var(--color-warn);
+  --tone-bg: var(--color-warn-soft);
+}
+
+[data-category] {
+  --cat-fg: var(--color-cat-other);
+  --cat-bg: rgb(168 175 180 / 10%);
+}
+
+[data-category='video'] {
+  --cat-fg: var(--color-cat-video);
+  --cat-bg: rgb(173 155 197 / 11%);
+}
+
+[data-category='audio'] {
+  --cat-fg: var(--color-cat-audio);
+  --cat-bg: rgb(195 149 166 / 11%);
+}
+
+[data-category='document'] {
+  --cat-fg: var(--color-cat-document);
+  --cat-bg: rgb(145 173 191 / 11%);
+}
+
+[data-category='archive'] {
+  --cat-fg: var(--color-cat-archive);
+  --cat-bg: rgb(210 177 122 / 11%);
+}
+
+[data-category='executable'] {
+  --cat-fg: var(--color-cat-executable);
+  --cat-bg: rgb(211 144 140 / 11%);
+}
+
+[data-category='image'] {
+  --cat-fg: var(--color-cat-image);
+  --cat-bg: rgb(130 182 170 / 11%);
+}
+
+[data-category='installer'] {
+  --cat-fg: var(--color-cat-installer);
+  --cat-bg: rgb(166 160 196 / 11%);
+}
+
+/* Component primitives. */
+.tone-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  border-radius: 9999px;
+  padding: 0.1rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 550;
+  line-height: 1.5;
+  color: var(--tone-fg);
+  background: var(--tone-bg);
+  white-space: nowrap;
+}
+
+.tone-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  background: var(--tone-fg);
+  flex: none;
+}
+
+/*
+ * The chunk map. Rendered as one continuous strip with hairline separators
+ * rather than a row of detached squares, which is what made the previous
+ * version read as a barcode instead of a progress bar.
+ */
+.chunk-strip {
+  position: relative;
+  display: flex;
+  gap: 1px;
+  height: 0.5rem;
+  border-radius: 9999px;
+  overflow: hidden;
+  background: var(--chunk-idle);
+}
+.chunk-cell {
+  flex: 1 1 0;
+  min-width: 1px;
+  transition: background-color 220ms linear;
+}
+
+/* The primary progress bar. */
+.bar {
+  position: relative;
+  height: 0.375rem;
+  border-radius: 9999px;
+  background: var(--chunk-idle);
+  overflow: hidden;
+}
+.bar-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--color-brand-500), var(--color-brand-300));
+  transition: width 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* A quiet surface used for expanded detail panels. */
+.panel {
+  border-radius: 0.625rem;
+  background: var(--surface-3);
+  border: 1px solid var(--line);
+}
+
+/* Hairline that reads as a separator rather than a border. */
+.hairline {
+  height: 1px;
+  background: var(--line);
+}

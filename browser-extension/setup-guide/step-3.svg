@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="390" viewBox="0 0 900 390" role="img" aria-labelledby="title desc">
+  <title id="title">Select the Moth extension folder</title>
+  <desc id="desc">Illustration of a folder picker with the extension directory selected.</desc>
+  <rect width="900" height="390" rx="18" fill="#edf2ef"/>
+  <rect x="110" y="25" width="680" height="340" rx="14" fill="#fff" stroke="#bfcac2" stroke-width="2"/>
+  <path d="M124 25h652a14 14 0 0 1 14 14v45H110V39a14 14 0 0 1 14-14" fill="#eef2ef"/>
+  <text x="141" y="57" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="650" fill="#26352c">Select folder</text>
+  <rect x="140" y="96" width="620" height="36" rx="6" fill="#f8faf8" stroke="#d8e0da"/>
+  <text x="156" y="119" font-family="Segoe UI,Arial,sans-serif" font-size="14" fill="#48594e">Desktop  ›  Moth Chrome Extension Setup</text>
+  <rect x="151" y="153" width="588" height="42" rx="6" fill="#edf5ef"/>
+  <path d="M170 166h17l5 5h19v15h-41z" fill="#e5b94d" stroke="#c39a36"/>
+  <text x="226" y="180" font-family="Segoe UI,Arial,sans-serif" font-size="15" font-weight="650" fill="#26352c">extension</text>
+  <rect x="151" y="205" width="588" height="41" rx="6" fill="#f8faf8"/>
+  <text x="170" y="231" font-family="Segoe UI,Arial,sans-serif" font-size="14" fill="#66746b">INSTALL.html</text>
+  <rect x="582" y="301" width="148" height="40" rx="7" fill="#466f53"/>
+  <text x="656" y="326" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="14" font-weight="650" fill="#fff">Select Folder</text>
+  <text x="140" y="278" font-family="Segoe UI,Arial,sans-serif" font-size="13" fill="#66746b">Choose “extension” (the folder containing manifest.json), not this outer folder.</text>
+  <path d="M513 179h54" stroke="#466f53" stroke-width="3"/><path d="m558 169 12 10-12 10" fill="none" stroke="#466f53" stroke-width="3"/>
+</svg>

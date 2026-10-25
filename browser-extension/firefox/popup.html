@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      :root {
+        --brand: #42694e;
+        --brand-hover: #35563f;
+        --ok: #28734a;
+        --bad: #a63f43;
+        --fg: #202723;
+        --muted: #66716b;
+        --line: #dce3de;
+        --bg: #f5f7f5;
+        --surface: #fff;
+      }
+      * { box-sizing: border-box; }
+      body {
+        width: 360px;
+        max-height: 620px;
+        overflow-y: auto;
+        margin: 0;
+        padding: 14px;
+        font: 13px/1.45 'Segoe UI', system-ui, sans-serif;
+        color: var(--fg);
+        background: var(--bg);
+      }
+      header { display: flex; align-items: center; gap: 9px; margin-bottom: 10px; }
+      .mark {
+        width: 30px; height: 30px; border-radius: 7px; background: var(--brand);
+        display: grid; place-items: center; color: #fff; font-size: 14px; font-weight: 700;
+      }
+      h1 { font-size: 13px; margin: 0; font-weight: 650; }
+      h2 { margin: 0; font-size: 12px; font-weight: 650; }
+      .status { display: flex; align-items: center; gap: 6px; margin-top: 2px; font-size: 11px; color: var(--muted); }
+      .dot { width: 7px; height: 7px; flex: 0 0 auto; border-radius: 50%; background: var(--muted); }
+      .dot.on { background: var(--ok); }
+      .dot.off { background: var(--bad); }
+      .section { padding: 11px 0; border-bottom: 1px solid var(--line); }
+      label { display: block; font-size: 11px; color: var(--muted); margin: 0 0 4px; }
+      input[type='text'], input[type='number'], textarea {
+        width: 100%; min-width: 0; padding: 7px 8px; border: 1px solid var(--line);
+        border-radius: 6px; font: inherit; font-size: 12px; background: var(--surface); color: var(--fg);
+      }
+      input:focus-visible, textarea:focus-visible, button:focus-visible, summary:focus-visible, a:focus-visible {
+        outline: 2px solid var(--brand); outline-offset: 2px;
+      }
+      .row { display: flex; gap: 6px; align-items: center; margin-top: 8px; }
+      button {
+        min-height: 31px; padding: 6px 10px; border: 0; border-radius: 6px; background: var(--brand);
+        color: #fff; font: inherit; font-weight: 600; font-size: 11.5px; cursor: pointer;
+      }
+      button:hover { background: var(--brand-hover); }
+      button.primary { flex: 1; }
+      button.secondary { border: 1px solid var(--line); background: #edf1ee; color: #34423a; }
+      button.secondary:hover { background: #e2e9e4; }
+      button:disabled { opacity: .5; cursor: default; }
+      .toggle { display: flex; align-items: flex-start; gap: 8px; margin: 8px 0 0; cursor: pointer; }
+      .toggle input { width: 15px; height: 15px; flex: 0 0 auto; margin: 1px 0 0; accent-color: var(--brand); }
+      .toggle span { color: var(--fg); font-size: 11.5px; }
+      .auto-toggle { padding: 10px 0; border-bottom: 1px solid var(--line); }
+      .hint { font-size: 10.5px; color: var(--muted); margin-top: 5px; line-height: 1.4; }
+      .msg { font-size: 11px; margin-top: 8px; padding: 7px 8px; border-radius: 5px; display: none; overflow-wrap: anywhere; }
+      .msg.show { display: block; }
+      .msg.ok { background: #e7f2e9; color: #265e37; }
+      .msg.err { background: #f8e9e8; color: #873438; }
+      .media-results { display: grid; gap: 5px; margin-top: 8px; max-height: 130px; overflow-y: auto; }
+      .media-results button { width: 100%; text-align: left; }
+      .media-results:empty { display: none; }
+      details { border-bottom: 1px solid var(--line); }
+      summary { padding: 10px 1px; color: #34423a; font-size: 11.5px; font-weight: 600; cursor: pointer; }
+      .advanced { padding: 0 0 11px; }
+      .links { padding-top: 10px; font-size: 10.5px; line-height: 1.5; color: var(--muted); }
+      .links a { color: var(--brand); }
+      code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 11px; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="mark" aria-hidden="true">M</div>
+      <div style="flex: 1; min-width: 0">
+        <h1>Moth Download Manager</h1>
+        <div class="status" role="status" aria-live="polite"><span class="dot" id="dot"></span><span id="statusText">Checking connection...</span></div>
+      </div>
+    </header>
+
+    <main>
+      <section class="section" aria-labelledby="sendTitle">
+        <label id="sendTitle" for="url">Download a link</label>
+        <input type="text" id="url" placeholder="Paste a file or media-page URL" autocomplete="url" />
+        <div class="row">
+          <button id="send" class="primary">Download</button>
+          <button id="resolveVideo" class="secondary">Resolve video</button>
+          <button id="resolveAudio" class="secondary">Resolve audio</button>
+        </div>
+        <div class="msg" id="msg2" role="status" aria-live="polite"></div>
+        <div class="hint">If Moth is closed, explicit sends try to open it.</div>
+      </section>
+
+      <section class="section" aria-labelledby="scanTitle">
+        <h2 id="scanTitle">Find media on this page</h2>
+        <div class="hint">Choose a detected source or ask Moth to resolve the page.</div>
+        <div class="row"><button id="findMedia" class="secondary">Scan this page</button></div>
+      <div class="media-results" id="mediaResults"></div>
+        <div class="msg" id="scanMsg" role="status" aria-live="polite"></div>
+        <div class="hint">Protected streams pass through as bytes; Moth never decrypts them.</div>
+      </section>
+
+      <label class="toggle auto-toggle">
+        <input type="checkbox" id="auto" />
+        <span>Automatically send browser downloads to Moth</span>
+      </label>
+      <div class="hint">When Moth is unavailable, the browser keeps its download running.</div>
+
+      <details>
+        <summary>Preferences and exclusions</summary>
+        <div class="advanced">
+          <label class="toggle">
+            <input type="checkbox" id="notify" />
+            <span>Notify when a link is sent</span>
+          </label>
+          <label class="toggle">
+            <input type="checkbox" id="showBadge" />
+            <span>Show media badge on pages</span>
+          </label>
+          <label for="blacklist">Excluded sites</label>
+          <textarea id="blacklist" rows="2" placeholder="example.com&#10;.youtube.com includes subdomains"></textarea>
+          <div class="hint">One hostname per line. Applies to every handoff method.</div>
+          <label for="excludedTypes">Excluded file types</label>
+          <input type="text" id="excludedTypes" placeholder=".exe, .msi, .zip" />
+          <div class="hint">Separate extensions with commas or spaces.</div>
+        </div>
+      </details>
+
+      <details>
+        <summary>Connection setup</summary>
+        <div class="advanced">
+          <div class="hint">Signed Chrome installs pair automatically when Moth is running. For manual installs, enter the values from Moth Settings.</div>
+          <label for="port">App port</label>
+          <input type="number" id="port" placeholder="24678" />
+          <label for="token">Pairing token</label>
+          <input type="text" id="token" placeholder="Paste token from Moth Settings" autocomplete="off" />
+          <div class="row">
+            <button id="save">Save and test</button>
+            <button class="secondary" id="test">Test connection</button>
+          </div>
+          <div class="msg" id="msg" role="status" aria-live="polite"></div>
+          <div class="links">Find the token in Moth under Settings &gt; Browser integration. The extension does not read browser cookies. <a href="#" id="openSettings">Manage extension</a>.</div>
+        </div>
+      </details>
+    </main>
+
+    <script src="transferPolicy.js"></script>
+    <script src="popup.js"></script>
+  </body>
+</html>

@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Install the Moth extension in Chrome</title>
+    <style>
+      :root { color-scheme: light; font: 16px/1.55 "Segoe UI", Arial, sans-serif; color: #19231d; background: #f2f6f3; }
+      * { box-sizing: border-box; }
+      body { max-width: 900px; margin: 0 auto; padding: 32px 20px 56px; }
+      header, article { background: #fff; border: 1px solid #dce6df; border-radius: 16px; box-shadow: 0 8px 28px #16351f0d; }
+      header { padding: 26px 30px; margin-bottom: 18px; }
+      h1 { margin: 0 0 8px; font-size: 28px; }
+      h2 { margin: 0 0 10px; font-size: 20px; }
+      p { margin: 8px 0; }
+      .subtle { color: #52625a; }
+      .notice { padding: 12px 14px; border-left: 4px solid #d59b30; background: #fff8e8; border-radius: 6px; }
+      article { padding: 24px 28px; margin-top: 16px; }
+      article img { display: block; width: 100%; max-width: 740px; margin: 18px auto 4px; border: 1px solid #dce6df; border-radius: 10px; }
+      code { background: #eff3f0; border-radius: 4px; padding: 2px 5px; overflow-wrap: anywhere; }
+      .path { display: block; padding: 10px 12px; margin: 12px 0; }
+      ol { padding-left: 24px; }
+      li { margin: 8px 0; }
+      footer { color: #52625a; font-size: 13px; padding: 18px 4px; }
+      @media (max-width: 560px) { body { padding: 14px 10px 32px; } header, article { padding: 20px 16px; } h1 { font-size: 23px; } }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>Add Moth to Chrome</h1>
+      <p class="subtle">Three quick steps. This uses Chrome’s standard “Load unpacked” developer workflow; it does not bypass Chrome’s extension protections.</p>
+      <p class="notice"><strong>Keep this Desktop folder.</strong> Chrome runs the extension from the <code>extension</code> subfolder. If you move or delete it, the extension stops working. You can remove the folder after removing the extension from Chrome.</p>
+    </header>
+
+    <article>
+      <h2>1. Open Chrome’s extension manager</h2>
+      <ol>
+        <li>Open Google Chrome.</li>
+        <li>Type <code>chrome://extensions</code> in the address bar and press Enter.</li>
+      </ol>
+      <img src="step-1.svg" alt="Illustration showing chrome://extensions entered in Chrome's address bar" />
+    </article>
+
+    <article>
+      <h2>2. Turn on Developer mode</h2>
+      <ol>
+        <li>Find the <strong>Developer mode</strong> switch near the top-right of the page.</li>
+        <li>Turn it on. Chrome displays the extension developer controls.</li>
+      </ol>
+      <img src="step-2.svg" alt="Illustration showing the Developer mode switch turned on" />
+    </article>
+
+    <article>
+      <h2>3. Load the Moth extension folder</h2>
+      <ol>
+        <li>Click <strong>Load unpacked</strong>.</li>
+        <li>In the folder picker, open this Desktop folder, then select the <strong>extension</strong> folder itself. It contains <code>manifest.json</code>.</li>
+        <li>Click <strong>Select Folder</strong>.</li>
+      </ol>
+      <code class="path">Desktop\Moth Chrome Extension Setup\extension</code>
+      <img src="step-3.svg" alt="Illustration showing the extension folder selected in the Chrome folder picker" />
+    </article>
+
+    <article>
+      <h2>4. Pair it with Moth</h2>
+      <ol>
+        <li>Keep Moth running and open its <strong>Settings → Browser integration</strong>.</li>
+        <li>Click the Moth icon beside Chrome’s address bar, then choose <strong>Save and test</strong> if it asks for pairing details.</li>
+        <li>Reload any YouTube tab that was already open. Start playback; the Moth Download button appears on the player. Click it to pick a video quality or MP3 audio.</li>
+      </ol>
+      <p class="subtle">The extension does not read browser cookies. Chrome may show its normal warning for an unpacked developer extension.</p>
+    </article>
+
+    <footer>These diagrams are illustrative; Chrome may look slightly different depending on its version, language, or window size.</footer>
+  </body>
+</html>

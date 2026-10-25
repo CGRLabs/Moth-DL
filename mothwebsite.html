@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="graphite">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="color-scheme" content="dark light">
+<meta name="description" content="Moth Download Manager — a desktop download manager whose single promise is that it will not hand you a corrupt file.">
+<title>Moth Download Manager — it will not hand you a corrupt file</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============ themes ============ */
+:root{
+  --bg:#0e1322; --bg2:#121a2d; --panel:rgba(255,255,255,.035); --panel2:rgba(255,255,255,.065);
+  --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.17);
+  --ink:#e9eef7; --ink2:#a6b1c8; --ink3:#68738e;
+  --accent:#b9e2f5; --accent2:#8fc9e8;
+  --green:#8ccba2; --amber:#e5b36b; --red:#e28376; --violet:#b9a8e8;
+  --chunk:rgba(255,255,255,.07); --fill:#7fb7d8; --ok:#79c493;
+  --glass:rgba(14,19,34,.72); --on-accent:#0c1522;
+  --glow1:rgba(143,201,232,.13); --glow2:rgba(140,203,162,.09);
+  --shadow:0 30px 80px -28px rgba(0,0,0,.55);
+}
+:root[data-theme="amber"]{
+  --bg:#171008; --bg2:#1e150b; --panel:rgba(255,225,180,.045); --panel2:rgba(255,225,180,.08);
+  --line:rgba(255,215,160,.11); --line2:rgba(255,215,160,.22);
+  --ink:#f4ecdc; --ink2:#c4b295; --ink3:#8d7c5f;
+  --accent:#ecb767; --accent2:#d99e4b;
+  --green:#a9c48a; --amber:#ecb767; --red:#e08a72; --violet:#c9a8d8;
+  --chunk:rgba(255,225,180,.09); --fill:#d99e4b; --ok:#a9c48a;
+  --glass:rgba(23,16,8,.72); --on-accent:#221503;
+  --glow1:rgba(236,183,103,.12); --glow2:rgba(169,196,138,.07);
+}
+:root[data-theme="midnight"]{
+  --bg:#000000; --bg2:#0a0a0d; --panel:rgba(255,255,255,.045); --panel2:rgba(255,255,255,.08);
+  --line:rgba(255,255,255,.1); --line2:rgba(255,255,255,.2);
+  --ink:#f3f5f9; --ink2:#a8adb9; --ink3:#5f6470;
+  --accent:#d3ecf9; --accent2:#a5d5ee;
+  --green:#93d6a9; --amber:#e5b36b; --red:#e28376; --violet:#c3b2ec;
+  --chunk:rgba(255,255,255,.08); --fill:#8fc3e0; --ok:#8fd2a6;
+  --glass:rgba(0,0,0,.7); --on-accent:#06121a;
+  --glow1:rgba(143,201,232,.08); --glow2:rgba(147,214,169,.06);
+}
+:root[data-theme="fieldnotes"]{
+  --bg:#f2ede0; --bg2:#faf6eb; --panel:rgba(62,54,34,.05); --panel2:rgba(62,54,34,.085);
+  --line:rgba(70,60,38,.17); --line2:rgba(70,60,38,.3);
+  --ink:#2c3325; --ink2:#5a6350; --ink3:#8b9080;
+  --accent:#3e6b4f; --accent2:#32573f;
+  --green:#4a7d59; --amber:#a97b2d; --red:#b0523f; --violet:#7a5f9e;
+  --chunk:rgba(62,54,34,.11); --fill:#6f9db0; --ok:#5d9168;
+  --glass:rgba(242,237,224,.82); --on-accent:#f4f0e4;
+  --glow1:rgba(62,107,79,.1); --glow2:rgba(169,123,45,.08);
+  --shadow:0 30px 70px -30px rgba(60,50,20,.3);
+}
+:root[data-theme="system"]{
+  --bg:#0e1322; --bg2:#121a2d; --panel:rgba(255,255,255,.035); --panel2:rgba(255,255,255,.065);
+  --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.17);
+  --ink:#e9eef7; --ink2:#a6b1c8; --ink3:#68738e;
+  --accent:#b9e2f5; --accent2:#8fc9e8;
+  --green:#8ccba2; --amber:#e5b36b; --red:#e28376; --violet:#b9a8e8;
+  --chunk:rgba(255,255,255,.07); --fill:#7fb7d8; --ok:#79c493;
+  --glass:rgba(14,19,34,.72); --on-accent:#0c1522;
+  --glow1:rgba(143,201,232,.13); --glow2:rgba(140,203,162,.09);
+  --shadow:0 30px 80px -28px rgba(0,0,0,.55);
+}
+@media (prefers-color-scheme: light){
+  :root[data-theme="system"]{
+    --bg:#f2ede0; --bg2:#faf6eb; --panel:rgba(62,54,34,.05); --panel2:rgba(62,54,34,.085);
+    --line:rgba(70,60,38,.17); --line2:rgba(70,60,38,.3);
+    --ink:#2c3325; --ink2:#5a6350; --ink3:#8b9080;
+    --accent:#3e6b4f; --accent2:#32573f;
+    --green:#4a7d59; --amber:#a97b2d; --red:#b0523f; --violet:#7a5f9e;
+    --chunk:rgba(62,54,34,.11); --fill:#6f9db0; --ok:#5d9168;
+    --glass:rgba(242,237,224,.82); --on-accent:#f4f0e4;
+    --glow1:rgba(62,107,79,.1); --glow2:rgba(169,123,45,.08);
+    --shadow:0 30px 70px -30px rgba(60,50,20,.3);
+  }
+}
+
+/* ============ base ============ */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--ink);
+  font:400 16px/1.65 "Inter",sans-serif;
+  -webkit-font-smoothing:antialiased; overflow-x:hidden;
+}
+body::before{
+  content:""; position:fixed; inset:0; z-index:-2; pointer-events:none;
+  background:
+    radial-gradient(760px 460px at 10% -4%, var(--glow1), transparent 62%),
+    radial-gradient(820px 520px at 92% 16%, var(--glow2), transparent 62%),
+    radial-gradient(700px 500px at 50% 108%, var(--glow1), transparent 62%);
+}
+body::after{
+  content:""; position:fixed; inset:0; z-index:-1; pointer-events:none; opacity:.035;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+::selection{background:color-mix(in srgb, var(--accent) 30%, transparent)}
+.wrap{max-width:1180px; margin:0 auto; padding:0 28px}
+section{padding:104px 0; scroll-margin-top:88px; position:relative}
+a{color:var(--accent); text-decoration:none}
+button{font:inherit; color:inherit; background:none; border:none; cursor:pointer}
+:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}
+.mono{font-family:"JetBrains Mono",monospace}
+svg.ic{width:1em; height:1em; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round; flex:none}
+
+/* ============ type ============ */
+.eyebrow{
+  font:500 12px/1 "JetBrains Mono",monospace; letter-spacing:.2em; text-transform:uppercase;
+  color:var(--accent); display:flex; align-items:center; gap:12px; margin-bottom:22px;
+}
+.eyebrow::before{content:""; width:26px; height:1px; background:var(--accent); opacity:.6}
+h1,h2,h3{font-family:"Space Grotesk",sans-serif; letter-spacing:-.02em; font-weight:600}
+h2{font-size:clamp(30px,4.3vw,46px); line-height:1.08; max-width:640px}
+.lede{color:var(--ink2); max-width:660px; margin-top:18px; font-size:17px}
+.lede strong, .lede b{color:var(--ink); font-weight:500}
+
+/* ============ reveal ============ */
+.rv{opacity:0; transform:translateY(24px); transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); transition-delay:var(--d,0s)}
+.rv.in{opacity:1; transform:none}
+@media (prefers-reduced-motion: reduce){ .rv{transition:none; opacity:1; transform:none} }
+
+/* ============ nav ============ */
+nav{
+  position:fixed; top:0; left:0; right:0; z-index:60;
+  background:transparent; transition:background .3s, border-color .3s, backdrop-filter .3s;
+  border-bottom:1px solid transparent;
+}
+nav.scrolled{background:var(--glass); backdrop-filter:blur(16px) saturate(1.3); border-color:var(--line)}
+.nav-in{max-width:1180px; margin:0 auto; padding:0 28px; height:64px; display:flex; align-items:center; gap:26px}
+.brand{display:flex; align-items:center; gap:10px; color:var(--ink); font:600 17px "Space Grotesk"}
+.brand .moth{width:26px; height:26px; color:var(--accent)}
+.brand .v{font:500 10px "JetBrains Mono"; color:var(--ink3); border:1px solid var(--line); padding:3px 7px; border-radius:99px; letter-spacing:.06em}
+.nav-links{display:flex; gap:24px; margin-left:8px}
+.nav-links a{color:var(--ink2); font-size:14px; font-weight:500; transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+.nav-right{margin-left:auto; display:flex; align-items:center; gap:12px}
+.icon-btn{width:36px; height:36px; display:grid; place-items:center; border:1px solid var(--line); border-radius:99px; color:var(--ink2); font-size:16px; transition:.2s; position:relative}
+.icon-btn:hover{color:var(--ink); border-color:var(--line2)}
+.pop-wrap{position:relative}
+.pop{
+  position:absolute; right:0; top:46px; min-width:190px; background:var(--bg2); border:1px solid var(--line);
+  border-radius:14px; padding:6px; box-shadow:var(--shadow); opacity:0; transform:translateY(-6px) scale(.98);
+  pointer-events:none; transition:.2s; z-index:70;
+}
+.pop.open{opacity:1; transform:none; pointer-events:auto}
+.pop button{display:flex; align-items:center; gap:10px; width:100%; text-align:left; padding:9px 12px; border-radius:9px; font-size:13.5px; color:var(--ink2)}
+.pop button:hover{background:var(--panel2); color:var(--ink)}
+.pop button.on{color:var(--ink)}
+.pop .sw{width:12px; height:12px; border-radius:4px; border:1px solid var(--line2)}
+.pop .tag{margin-left:auto; font:500 9.5px "JetBrains Mono"; color:var(--ink3); letter-spacing:.08em}
+
+/* ============ buttons / pills ============ */
+.btn{
+  display:inline-flex; align-items:center; gap:9px; border-radius:999px; padding:13px 24px;
+  font:600 15px "Space Grotesk"; letter-spacing:.01em; transition:transform .25s cubic-bezier(.34,1.4,.4,1), box-shadow .25s, background .2s, border-color .2s;
+  border:1px solid transparent;
+}
+.btn:hover{transform:translateY(-2px)}
+.btn-primary{background:var(--green); color:var(--on-accent)}
+.btn-primary:hover{box-shadow:0 10px 34px color-mix(in srgb, var(--green) 35%, transparent)}
+.btn-ghost{border-color:var(--line2); color:var(--ink)}
+.btn-ghost:hover{background:var(--panel2)}
+.btn-sm{padding:9px 16px; font-size:13.5px}
+.pill{
+  display:inline-flex; align-items:center; gap:6px; font:500 10.5px "JetBrains Mono";
+  letter-spacing:.07em; text-transform:uppercase; padding:4px 10px; border-radius:99px;
+  border:1px solid var(--line2); color:var(--ink2); white-space:nowrap;
+}
+.pill .dot{width:6px; height:6px; border-radius:99px; background:currentColor}
+.pill.g{color:var(--green); border-color:color-mix(in srgb,var(--green) 40%,transparent); background:color-mix(in srgb,var(--green) 10%,transparent)}
+.pill.a{color:var(--amber); border-color:color-mix(in srgb,var(--amber) 40%,transparent); background:color-mix(in srgb,var(--amber) 10%,transparent)}
+.pill.r{color:var(--red); border-color:color-mix(in srgb,var(--red) 40%,transparent); background:color-mix(in srgb,var(--red) 10%,transparent)}
+.pill.v{color:var(--violet); border-color:color-mix(in srgb,var(--violet) 40%,transparent); background:color-mix(in srgb,var(--violet) 10%,transparent)}
+.pill.i{color:var(--accent); border-color:color-mix(in srgb,var(--accent) 40%,transparent); background:color-mix(in srgb,var(--accent) 10%,transparent)}
+.pill .dot.pulse{animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.3}}
+
+/* ============ hero ============ */
+.hero{padding:158px 0 100px; position:relative; overflow:hidden}
+.hero::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  background:
+    linear-gradient(color-mix(in srgb,var(--line) 55%,transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb,var(--line) 55%,transparent) 1px, transparent 1px);
+  background-size:56px 56px;
+  mask-image:radial-gradient(900px 600px at 30% 20%, #000 20%, transparent 75%);
+  opacity:.5;
+}
+.hero-grid{display:grid; grid-template-columns:.92fr 1.08fr; gap:56px; align-items:center; position:relative}
+.hero h1{font-size:clamp(38px,5.4vw,64px); line-height:1.04}
+.hero h1 .u{text-decoration:underline wavy color-mix(in srgb,var(--red) 55%,transparent); text-decoration-thickness:3px; text-underline-offset:9px}
+.hero .lede{font-size:17.5px; margin-top:22px}
+.hero-cta{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap}
+.hero-strip{margin-top:38px; font:500 11px "JetBrains Mono"; letter-spacing:.1em; color:var(--ink3); display:flex; flex-wrap:wrap; gap:8px 0; text-transform:uppercase}
+.hero-strip span{padding-right:14px; margin-right:14px; border-right:1px solid var(--line)}
+.hero-strip span:last-child{border:none}
+
+/* ============ simulator card ============ */
+.sim{
+  position:relative; border:1px solid var(--line); border-radius:24px; padding:22px 22px 16px;
+  background:linear-gradient(180deg, var(--panel2), var(--panel)); box-shadow:var(--shadow); overflow:hidden;
+}
+.sim::before{
+  content:""; position:absolute; inset:0; pointer-events:none; border-radius:inherit;
+  background:radial-gradient(340px 220px at var(--mx,50%) var(--my,0%), color-mix(in srgb,var(--accent) 9%,transparent), transparent 70%);
+}
+.sim-top{display:flex; align-items:center; gap:12px}
+.sim-ico{width:42px; height:42px; border-radius:13px; border:1px solid var(--line2); display:grid; place-items:center; color:var(--accent); font-size:19px; background:var(--panel); flex:none}
+.sim-name{min-width:0}
+.sim-name b{display:block; font:500 13.5px "JetBrains Mono"; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.sim-name .badges{display:flex; gap:6px; margin-top:5px}
+.sim-part{color:var(--ink3); transition:opacity .6s, filter .6s}
+.sim-part.gone{opacity:0; filter:blur(2px)}
+.sim-right{margin-left:auto; text-align:right; flex:none}
+.sim-right b{font:600 22px "JetBrains Mono"; letter-spacing:-.02em}
+.sim-right span{display:block; font:500 12px "JetBrains Mono"; color:var(--green); margin-top:2px}
+.sim-grid{display:grid; grid-template-columns:repeat(32,1fr); gap:3px; margin:18px 0 14px; user-select:none}
+.cell{height:9px; border-radius:2.5px; background:var(--chunk); transition:background .25s}
+.cell.f{background:var(--fill)}
+.cell.ok{background:var(--ok)}
+.cell.ok.pop{animation:cpop .5s ease}
+@keyframes cpop{0%{transform:scale(1.7); filter:brightness(2.4)} 60%{transform:scale(1.06)} 100%{transform:scale(1)}}
+.cell.chk{box-shadow:0 0 0 1.5px var(--accent); filter:brightness(1.6)}
+.cell.bad{background:var(--red)!important; animation:shk .22s ease 3}
+@keyframes shk{25%{transform:translateX(-1.5px)} 75%{transform:translateX(1.5px)}}
+.sim-status{display:flex; justify-content:space-between; gap:10px; font:500 11.5px "JetBrains Mono"; color:var(--ink2); flex-wrap:wrap}
+.sim-status .lim{color:var(--ink3)}
+#simCv{display:block; width:100%; height:86px; margin-top:10px; border:1px solid var(--line); border-radius:12px; background:color-mix(in srgb, var(--panel) 60%, transparent)}
+.sim-log{margin-top:12px; min-height:78px; font:400 11.5px/1.75 "JetBrains Mono"; color:var(--ink2)}
+.sim-log .ln span{color:var(--ink3); margin-right:10px}
+.sim-log .ok{color:var(--green)} .sim-log .warn{color:var(--amber)} .sim-log .err{color:var(--red)}
+.sim-actions{display:flex; align-items:center; gap:10px; margin-top:14px; padding-top:14px; border-top:1px solid var(--line); flex-wrap:wrap}
+.sim-actions .hint{margin-left:auto; font:400 11.5px "JetBrains Mono"; color:var(--ink3)}
+.sim-actions .btn.off{opacity:.4}
+.sim-foot{margin-top:12px; font:400 10.5px "JetBrains Mono"; color:var(--ink3); letter-spacing:.04em; display:flex; gap:14px; flex-wrap:wrap}
+
+/* ============ integrity ============ */
+.steps{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:52px}
+.step{position:relative; border:1px solid var(--line); border-radius:20px; padding:24px; background:var(--panel)}
+.step .n{font:600 13px "JetBrains Mono"; color:var(--accent); letter-spacing:.14em}
+.step h3{font-size:19px; margin:12px 0 8px}
+.step p{color:var(--ink2); font-size:14.5px}
+.step:not(:last-child)::after{
+  content:""; position:absolute; right:-13px; top:50%; width:8px; height:8px;
+  border-top:1.5px solid var(--ink3); border-right:1.5px solid var(--ink3); transform:translateY(-50%) rotate(45deg); z-index:1;
+}
+.steps.in .step{animation:lit 1.4s both}
+.steps.in .step:nth-child(2){animation-delay:.5s}
+.steps.in .step:nth-child(3){animation-delay:1s}
+@keyframes lit{0%{border-color:var(--accent2); box-shadow:0 0 0 1px var(--accent2), 0 0 30px color-mix(in srgb,var(--accent) 25%,transparent)} 100%{border-color:var(--line); box-shadow:none}}
+.gcards{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:18px}
+.gcard{border:1px solid var(--line); border-radius:20px; padding:24px; background:var(--panel); transition:border-color .25s, transform .25s}
+.gcard:hover{border-color:var(--line2); transform:translateY(-2px)}
+.gcard .gi{width:38px; height:38px; border-radius:11px; border:1px solid var(--line2); display:grid; place-items:center; color:var(--accent); font-size:17px; margin-bottom:16px}
+.gcard h3{font-size:17.5px; margin-bottom:8px}
+.gcard p{color:var(--ink2); font-size:14.5px}
+.gcard p code{font:500 12px "JetBrains Mono"; color:var(--ink); background:var(--panel2); padding:2px 6px; border-radius:6px}
+.istats{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:44px}
+.istat{border-top:1px solid var(--line); padding-top:18px}
+.istat b{font:600 34px "Space Grotesk"; letter-spacing:-.03em; color:var(--accent)}
+.istat span{display:block; color:var(--ink2); font-size:13.5px; margin-top:4px}
+
+/* ============ engines ============ */
+.tabs{display:inline-flex; gap:4px; padding:4px; border:1px solid var(--line); border-radius:999px; background:var(--panel); margin-top:40px}
+.tab{padding:9px 20px; border-radius:999px; font:600 14px "Space Grotesk"; color:var(--ink2); transition:.2s}
+.tab.on{background:var(--panel2); color:var(--ink); box-shadow:inset 0 0 0 1px var(--line2)}
+.ep{display:none; margin-top:36px}
+.ep.on{display:grid; grid-template-columns:1.02fr .98fr; gap:52px; align-items:start; animation:fadeUp .5s cubic-bezier(.2,.7,.2,1)}
+@keyframes fadeUp{from{opacity:0; transform:translateY(14px)}}
+.ep h3{font-size:24px; margin-bottom:14px}
+.blist{list-style:none; margin-top:6px}
+.blist li{display:flex; gap:12px; padding:9px 0; color:var(--ink2); font-size:15px; border-bottom:1px dashed color-mix(in srgb,var(--line) 80%,transparent)}
+.blist li:last-child{border:none}
+.blist .ic{color:var(--green); margin-top:4px; font-size:15px}
+.blist b{color:var(--ink); font-weight:500}
+.evisual{border:1px solid var(--line); border-radius:22px; padding:26px; background:var(--panel)}
+.evisual .cap{font:400 11.5px "JetBrains Mono"; color:var(--ink3); margin-top:16px; letter-spacing:.03em}
+.fmap{position:relative; height:42px; border:1px solid var(--line2); border-radius:11px; overflow:hidden; background:var(--chunk)}
+.fs{position:absolute; top:3px; bottom:3px; border-radius:6px; width:6%}
+.fs.c0{background:color-mix(in srgb,var(--accent) 60%,transparent)} .fs.c1{background:color-mix(in srgb,var(--green) 60%,transparent)}
+.fs.c2{background:color-mix(in srgb,var(--violet) 60%,transparent)} .fs.c3{background:color-mix(in srgb,var(--amber) 60%,transparent)}
+.gcra{width:100%; height:auto; margin-top:22px}
+.gcra path{stroke-dasharray:700; stroke-dashoffset:0}
+.ep:not(.on) .gcra path{stroke-dashoffset:700}
+.gcra .draw path{transition:stroke-dashoffset 1.8s ease}
+.gcra text{font:500 9.5px "JetBrains Mono"; letter-spacing:.06em}
+.pipe{display:flex; align-items:center; gap:8px; flex-wrap:wrap}
+.pnode{border:1px solid var(--line2); border-radius:11px; padding:10px 14px; font:500 13px "JetBrains Mono"; color:var(--ink2); transition:.35s; background:var(--panel)}
+.pnode.on{border-color:var(--accent); color:var(--ink); box-shadow:0 0 18px color-mix(in srgb,var(--accent) 22%,transparent)}
+.parrow{color:var(--ink3); font:500 14px "JetBrains Mono"}
+.pstreams{display:flex; gap:8px; flex-wrap:wrap; margin-top:16px}
+.pstreams span{font:500 11px "JetBrains Mono"; color:var(--accent); border:1px dashed color-mix(in srgb,var(--accent) 40%,transparent); padding:5px 10px; border-radius:8px}
+.pstreams em{display:block; width:100%; font:400 11.5px "JetBrains Mono"; font-style:normal; color:var(--ink3); margin-top:6px}
+.pgrid{display:grid; grid-template-columns:repeat(15,1fr); gap:4px; margin-bottom:6px}
+.pgrid i{height:11px; border-radius:3px; background:var(--chunk); transition:background .3s}
+.pgrid i.f{background:var(--ok)}
+.tfile{display:flex; align-items:center; gap:12px; padding:11px 4px; border-bottom:1px dashed color-mix(in srgb,var(--line) 80%,transparent); cursor:pointer; font-size:14px; color:var(--ink2)}
+.tfile:last-of-type{border:none}
+.tfile input{display:none}
+.tfile .box{width:18px; height:18px; border-radius:6px; border:1.5px solid var(--line2); display:grid; place-items:center; color:var(--on-accent); transition:.2s; flex:none}
+.tfile input:checked + .box{background:var(--green); border-color:var(--green)}
+.tfile .box .ic{width:11px; height:11px; stroke-width:3; opacity:0; transition:.2s}
+.tfile input:checked + .box .ic{opacity:1}
+.tfile .sz{margin-left:auto; font:500 11.5px "JetBrains Mono"; color:var(--ink3)}
+.tsel-sum{font:500 11.5px "JetBrains Mono"; color:var(--ink2); margin-top:12px}
+
+/* ============ flow ============ */
+.flow-stage{
+  position:relative; margin-top:52px; aspect-ratio:1000/560; max-height:600px; border:1px solid var(--line);
+  border-radius:26px; overflow:hidden;
+  background:
+    radial-gradient(600px 320px at 50% 0%, color-mix(in srgb,var(--accent) 6%,transparent), transparent 70%),
+    linear-gradient(color-mix(in srgb,var(--line) 45%,transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in srgb,var(--line) 45%,transparent) 1px, transparent 1px);
+  background-size:auto,54px 54px,54px 54px;
+}
+.flow-svg{position:absolute; inset:0; width:100%; height:100%}
+.flow-svg path{fill:none; stroke:color-mix(in srgb,var(--accent) 45%,transparent); stroke-width:1.5; vector-effect:non-scaling-stroke; transition:stroke .3s}
+.flow-svg path.hot{stroke:var(--accent); filter:drop-shadow(0 0 6px color-mix(in srgb,var(--accent) 60%,transparent))}
+.wan{
+  position:absolute; left:50%; top:15.4%; transform:translate(-50%,-50%); width:92px; height:92px; border-radius:99px;
+  border:1.5px solid color-mix(in srgb,var(--accent) 55%,transparent); display:grid; place-items:center;
+  font:600 13px "JetBrains Mono"; letter-spacing:.12em; color:var(--accent);
+  background:color-mix(in srgb,var(--bg) 70%,transparent); backdrop-filter:blur(4px);
+  box-shadow:0 0 40px color-mix(in srgb,var(--accent) 18%,transparent); animation:wanglow 3.4s ease-in-out infinite;
+}
+@keyframes wanglow{50%{box-shadow:0 0 64px color-mix(in srgb,var(--accent) 30%,transparent)}}
+.wan-cap{position:absolute; left:50%; top:calc(15.4% + 56px); transform:translateX(-50%); font:500 9px "JetBrains Mono"; letter-spacing:.24em; color:var(--ink3)}
+.fnode{position:absolute; width:9px; height:9px; border-radius:99px; background:var(--bg); border:1.5px solid var(--accent); transform:translate(-50%,-50%)}
+.fcard{
+  position:absolute; transform:translateX(-50%); width:clamp(180px,30%,300px);
+  border:1px solid var(--line2); border-radius:20px; padding:16px 18px;
+  background:color-mix(in srgb,var(--bg) 82%,transparent); backdrop-filter:blur(8px);
+  transition:border-color .3s, transform .3s, box-shadow .3s; animation:bob 5.2s ease-in-out infinite;
+}
+.fcard:hover{border-color:var(--accent); box-shadow:0 14px 44px -12px color-mix(in srgb,var(--accent) 25%,transparent); animation-play-state:paused}
+.fcard:nth-of-type(2){animation-delay:-1.8s} .fcard:nth-of-type(3){animation-delay:-3.4s}
+@keyframes bob{50%{margin-top:-7px}}
+.fcard .fh{display:flex; align-items:center; gap:8px; margin-bottom:12px}
+.fcard .fh .ic{color:var(--ink3); font-size:14px}
+.fcard .fh b{font:500 12.5px "Space Grotesk"; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.fcard .fh .pill{margin-left:auto}
+.fring{position:relative; width:76px; height:76px; margin:4px auto 10px}
+.fring svg{transform:rotate(-90deg)}
+.fring .tr{stroke:var(--line2)} .fring .pr{stroke:var(--accent); transition:stroke .4s}
+.fcard.done .pr{stroke:var(--green)}
+.fring b{position:absolute; inset:0; display:grid; place-items:center; font:600 15px "JetBrains Mono"}
+.fcard .ffoot{text-align:center; font:500 10.5px "JetBrains Mono"; color:var(--ink2)}
+.fcard .ffoot em{font-style:normal; color:var(--ink3)}
+.flow-pill{position:absolute; left:18px; top:16px; z-index:5}
+.flow-reset{position:absolute; right:18px; top:14px; z-index:5}
+
+/* ============ pull quote ============ */
+.quote{padding:120px 0; text-align:center}
+.quote p{font:500 clamp(26px,4vw,42px)/1.25 "Space Grotesk"; letter-spacing:-.02em; max-width:820px; margin:0 auto}
+.quote p em{font-style:normal; color:var(--accent)}
+.quote .who{margin-top:22px; font:500 11px "JetBrains Mono"; letter-spacing:.2em; color:var(--ink3); text-transform:uppercase}
+
+/* ============ control bento ============ */
+.bento{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:52px}
+.bcard{border:1px solid var(--line); border-radius:20px; padding:24px; background:var(--panel); transition:transform .3s cubic-bezier(.34,1.3,.4,1), border-color .3s}
+.bcard:hover{transform:translateY(-3px); border-color:var(--line2)}
+.bcard.wide{grid-column:span 2}
+.bcard .bi{width:36px; height:36px; border-radius:11px; border:1px solid var(--line2); display:grid; place-items:center; color:var(--accent); font-size:16px; margin-bottom:16px}
+.bcard h3{font-size:17px; margin-bottom:7px}
+.bcard p{color:var(--ink2); font-size:14px}
+.bviz{margin-top:18px; border-top:1px dashed color-mix(in srgb,var(--line) 80%,transparent); padding-top:16px}
+.ruler{position:relative; height:36px; border:1px solid var(--line2); border-radius:9px; overflow:hidden;
+  background:repeating-linear-gradient(90deg, color-mix(in srgb,var(--line) 90%,transparent) 0 1px, transparent 1px 12.5%)}
+.plan-block{position:absolute; left:2%; top:5px; bottom:5px; width:24%; border-radius:6px;
+  background:color-mix(in srgb,var(--green) 22%,transparent); border:1px solid color-mix(in srgb,var(--green) 45%,transparent);
+  display:grid; place-items:center; font:500 9.5px "JetBrains Mono"; color:var(--ink); letter-spacing:.04em}
+.ruler-l{display:flex; justify-content:space-between; font:400 9px "JetBrains Mono"; color:var(--ink3); margin-top:6px}
+.frow{display:flex; align-items:center; gap:10px; padding:8px 12px; border:1px solid var(--line); border-radius:11px; margin-bottom:8px; font:500 12.5px "JetBrains Mono"; color:var(--ink2)}
+.frow:last-child{margin-bottom:0}
+.frow.promoted{border-color:color-mix(in srgb,var(--accent) 55%,transparent); color:var(--ink); box-shadow:0 0 16px color-mix(in srgb,var(--accent) 14%,transparent)}
+.frow .pill{margin-left:auto}
+.frow.drag{transform:translateX(10px); box-shadow:0 10px 24px -8px rgba(0,0,0,.4); border-color:var(--line2)}
+.frow .grip{color:var(--ink3); letter-spacing:2px; font-size:11px}
+.chips{display:flex; gap:8px; flex-wrap:wrap}
+.chips .pill{cursor:default}
+.tgl{width:38px; height:22px; border-radius:99px; border:1px solid var(--line2); background:var(--panel); position:relative; transition:.25s; flex:none; margin-left:auto}
+.tgl::after{content:""; position:absolute; top:2.5px; left:3px; width:15px; height:15px; border-radius:99px; background:var(--ink3); transition:.25s cubic-bezier(.34,1.4,.4,1)}
+.tgl.on{background:color-mix(in srgb,var(--green) 30%,transparent); border-color:var(--green)}
+.tgl.on::after{left:18px; background:var(--green)}
+.trow{display:flex; align-items:center; gap:10px; font-size:13.5px; color:var(--ink2); padding:7px 0}
+.moonline{font:500 13px "JetBrains Mono"; color:var(--amber); display:flex; align-items:center; gap:8px}
+
+/* ============ library ============ */
+.lib-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:22px; margin-top:52px}
+.panel{border:1px solid var(--line); border-radius:22px; background:var(--panel); padding:22px}
+.cats{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px}
+.cat{display:inline-flex; align-items:center; gap:7px; border:1px solid var(--line); border-radius:99px; padding:7px 13px; font:500 12px "Space Grotesk"; color:var(--ink2); transition:.2s}
+.cat .ic{font-size:13px}
+.cat i{font:500 10px "JetBrains Mono"; font-style:normal; color:var(--ink3)}
+.cat:hover{border-color:var(--line2); color:var(--ink)}
+.cat.on{border-color:var(--accent); color:var(--ink); background:color-mix(in srgb,var(--accent) 9%,transparent)}
+.flist{display:flex; flex-direction:column}
+.frow2{display:flex; align-items:center; gap:12px; padding:11px 6px; border-bottom:1px dashed color-mix(in srgb,var(--line) 75%,transparent); transition:opacity .3s}
+.frow2:last-child{border:none}
+.frow2.hide{display:none}
+.frow2 .ic{color:var(--ink3); font-size:15px}
+.frow2 b{font:500 13px "JetBrains Mono"; font-weight:500; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+.frow2 .rt{margin-left:auto; font:400 10.5px "JetBrains Mono"; color:var(--ink3); flex:none}
+.frow2 .sz{font:400 11px "JetBrains Mono"; color:var(--ink2); flex:none; width:74px; text-align:right}
+.rootc{display:flex; flex-direction:column; gap:12px}
+.root{display:flex; align-items:center; gap:13px; border:1px solid var(--line); border-radius:15px; padding:15px 17px}
+.root .ic{color:var(--accent); font-size:18px}
+.root b{display:block; font:600 14.5px "Space Grotesk"}
+.root span{font:400 11px "JetBrains Mono"; color:var(--ink3)}
+.root.dashed{border-style:dashed}
+.root .cnt{margin-left:auto; font:500 11px "JetBrains Mono"; color:var(--ink2)}
+
+/* ============ connect / security ============ */
+.con-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:24px; margin-top:52px; align-items:start}
+.browsers{display:flex; gap:8px; flex-wrap:wrap; margin:22px 0}
+.mode{display:flex; gap:14px; border:1px solid var(--line); border-radius:16px; padding:18px; background:var(--panel); margin-bottom:12px}
+.mode .ic{color:var(--accent); font-size:17px; margin-top:2px}
+.mode b{display:block; font:600 15px "Space Grotesk"; margin-bottom:4px}
+.mode p{color:var(--ink2); font-size:13.5px}
+.guide{display:flex; gap:14px; border:1px dashed color-mix(in srgb,var(--accent) 45%,transparent); border-radius:16px; padding:18px; background:color-mix(in srgb,var(--accent) 5%,transparent)}
+.guide .ic{color:var(--accent); font-size:17px; margin-top:2px}
+.guide p{font-size:13.5px; color:var(--ink2)}
+.guide b{color:var(--ink)}
+.secv{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:52px}
+.secc{border:1px solid var(--line); border-radius:20px; padding:24px; background:var(--panel); transition:.25s}
+.secc:hover{border-color:var(--line2); transform:translateY(-2px)}
+.secc .ic{color:var(--accent); font-size:19px; margin-bottom:14px}
+.secc h3{font-size:16px; margin-bottom:7px}
+.secc p{color:var(--ink2); font-size:13.5px}
+
+/* ============ cli ============ */
+.cli-grid{display:grid; grid-template-columns:.9fr 1.1fr; gap:44px; margin-top:52px; align-items:start}
+.faults{display:flex; gap:8px; flex-wrap:wrap; margin-top:22px}
+.fault{font:500 11.5px "JetBrains Mono"; border:1px solid var(--line2); border-radius:99px; padding:7px 14px; color:var(--ink2); transition:.2s}
+.fault:hover{border-color:var(--accent); color:var(--ink); background:color-mix(in srgb,var(--accent) 8%,transparent)}
+.term{border:1px solid var(--line); border-radius:20px; background:color-mix(in srgb,var(--bg2) 88%,transparent); overflow:hidden; box-shadow:var(--shadow)}
+.term-h{display:flex; align-items:center; gap:8px; padding:13px 18px; border-bottom:1px solid var(--line)}
+.term-h i{width:11px; height:11px; border-radius:99px; background:var(--line2)}
+.term-h i:nth-child(1){background:color-mix(in srgb,var(--red) 60%,transparent)}
+.term-h i:nth-child(2){background:color-mix(in srgb,var(--amber) 60%,transparent)}
+.term-h i:nth-child(3){background:color-mix(in srgb,var(--green) 60%,transparent)}
+.term-h span{margin-left:8px; font:500 11.5px "JetBrains Mono"; color:var(--ink3)}
+.term-h b{margin-left:auto; font:500 10.5px "JetBrains Mono"; color:var(--ink3); font-weight:400}
+.term-b{height:340px; overflow:hidden; padding:18px 20px; font:400 12.5px/1.9 "JetBrains Mono"}
+.tl{white-space:pre-wrap; word-break:break-all}
+.tl.c{color:var(--ink)} .tl.c::before{content:""; }
+.tl.o{color:var(--ink2)} .tl.g{color:var(--green)} .tl.e{color:var(--red)} .tl.a{color:var(--amber)}
+.tl .caret{display:inline-block; width:7px; height:14px; background:var(--accent); vertical-align:-2px; animation:pulse 1s infinite}
+.cli-notes{display:flex; gap:8px; flex-wrap:wrap; margin-top:18px}
+
+/* ============ limits ============ */
+.limv{display:grid; grid-template-columns:1fr 1fr; gap:0 40px; margin-top:52px}
+.lim-item{display:flex; gap:14px; padding:16px 0; border-bottom:1px dashed color-mix(in srgb,var(--line) 80%,transparent)}
+.lim-item .ic{color:var(--amber); font-size:15px; margin-top:4px}
+.lim-item b{color:var(--ink); font-weight:500}
+.lim-item span{color:var(--ink2); font-size:14px}
+.lim-close{text-align:center; margin-top:52px; font:500 17px "Space Grotesk"; color:var(--ink2)}
+.lim-close em{color:var(--accent); font-style:normal}
+
+/* ============ themes ============ */
+.themev{display:grid; grid-template-columns:repeat(5,1fr); gap:16px; margin-top:52px}
+.thc{text-align:left; border:1px solid var(--line); border-radius:20px; padding:14px; background:var(--panel); transition:.25s; display:block; width:100%}
+.thc:hover{transform:translateY(-3px); border-color:var(--line2)}
+.thc.on{border-color:var(--accent); box-shadow:0 0 0 1px var(--accent)}
+.thc .mini{height:104px; border-radius:13px; border:1px solid var(--line); padding:12px; display:flex; flex-direction:column; gap:8px; overflow:hidden}
+.thc .mini .bar{display:flex; gap:4px}
+.thc .mini .bar i{width:6px; height:6px; border-radius:99px; background:var(--m-line)}
+.thc .mini .row{height:8px; border-radius:4px; background:var(--m-line)}
+.thc .mini .row.acc{background:var(--m-acc); width:55%}
+.thc .mini .chunks{display:flex; gap:3px; margin-top:auto}
+.thc .mini .chunks i{flex:1; height:7px; border-radius:2px; background:var(--m-chunk)}
+.thc .mini .chunks i.g{background:var(--m-ok)}
+.thc b{display:block; font:600 14.5px "Space Grotesk"; margin:14px 2px 3px; color:var(--ink)}
+.thc span{display:block; font-size:12px; color:var(--ink3); margin:0 2px}
+
+/* ============ download ============ */
+.dl-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:52px}
+.dlc{border:1px solid var(--line); border-radius:22px; padding:28px; background:var(--panel); display:flex; flex-direction:column; transition:.25s}
+.dlc:hover{border-color:var(--line2); transform:translateY(-3px)}
+.dlc .os{width:44px; height:44px; border-radius:13px; border:1px solid var(--line2); display:grid; place-items:center; color:var(--accent); font-size:20px; margin-bottom:18px}
+.dlc h3{font-size:19px}
+.dlc .fmt{font:500 11px "JetBrains Mono"; color:var(--ink3); letter-spacing:.1em; text-transform:uppercase; margin:5px 0 12px}
+.dlc p{color:var(--ink2); font-size:14px; flex:1}
+.dlc .btn{margin-top:22px; justify-content:center}
+.dl-strip{margin-top:34px; border:1px dashed var(--line2); border-radius:16px; padding:18px 22px; font:400 12px/2 "JetBrains Mono"; color:var(--ink2); text-align:center}
+.dl-strip b{color:var(--accent); font-weight:500}
+.dl-note{text-align:center; margin-top:18px; font-size:13.5px; color:var(--ink3)}
+.dl-note b{color:var(--ink2); font-weight:500}
+
+/* ============ footer ============ */
+footer{border-top:1px solid var(--line); padding:56px 0 44px; margin-top:40px}
+.foot{display:flex; align-items:flex-start; gap:30px; flex-wrap:wrap}
+.foot .brand{font-size:18px}
+.foot .brand .moth{width:30px; height:30px}
+.foot-tag{color:var(--ink2); font-size:14px; margin-top:10px; max-width:340px}
+.foot-right{margin-left:auto; text-align:right; font:400 12px/2 "JetBrains Mono"; color:var(--ink3)}
+.foot-right a{color:var(--ink2)}
+.foot-moth{margin-top:34px; font-size:13px; color:var(--ink3); display:flex; gap:10px; align-items:center}
+.foot-moth .ic{color:var(--accent); font-size:14px}
+
+/* ============ toast ============ */
+#toast{
+  position:fixed; left:50%; bottom:26px; transform:translate(-50%,16px); z-index:100;
+  background:var(--glass); backdrop-filter:blur(14px); border:1px solid var(--line2);
+  border-radius:999px; padding:12px 20px; font:500 13px "Space Grotesk"; color:var(--ink);
+  opacity:0; pointer-events:none; transition:.35s cubic-bezier(.34,1.3,.4,1); box-shadow:var(--shadow);
+  display:flex; align-items:center; gap:10px; max-width:calc(100vw - 40px);
+}
+#toast.on{opacity:1; transform:translate(-50%,0)}
+#toast .ic{color:var(--green)}
+
+/* ============ responsive ============ */
+@media (max-width:1020px){
+  .hero-grid{grid-template-columns:1fr; gap:44px}
+  .ep.on{grid-template-columns:1fr; gap:30px}
+  .con-grid,.cli-grid,.lib-grid{grid-template-columns:1fr}
+  .secv{grid-template-columns:1fr 1fr}
+  .themev{grid-template-columns:repeat(3,1fr)}
+  .istats{grid-template-columns:1fr 1fr; gap:24px}
+}
+@media (max-width:760px){
+  .nav-links{display:none}
+  section{padding:76px 0}
+  .steps{grid-template-columns:1fr}
+  .step::after{display:none}
+  .gcards,.limv,.dl-grid,.bento{grid-template-columns:1fr}
+  .bcard.wide{grid-column:span 1}
+  .themev{grid-template-columns:1fr 1fr}
+  .flow-stage{aspect-ratio:auto; display:flex; flex-direction:column; align-items:center; padding:22px; gap:14px}
+  .flow-svg,.wan-cap,.fnode{display:none}
+  .wan{position:static; transform:none}
+  .fcard{position:static; transform:none; width:100%; max-width:360px; animation:none}
+  .flow-pill,.flow-reset{position:static}
+  .flow-toprow{display:flex; justify-content:space-between; width:100%; align-items:center}
+  .sim-grid{grid-template-columns:repeat(20,1fr)}
+  .sim-actions .hint{display:none}
+  .foot-right{margin-left:0; text-align:left}
+}
+@media (prefers-reduced-motion: reduce){
+  .wan,.fcard{animation:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<!-- ======= svg sprite ======= -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="moth" viewBox="0 0 48 48">
+    <path d="M22.6 11.6C20.4 8.6 17.4 6.9 13.6 6.1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+    <path d="M25.4 11.6C27.6 8.6 30.6 6.9 34.4 6.1" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+    <circle cx="12.9" cy="5.9" r="1.7" fill="currentColor"/><circle cx="35.1" cy="5.9" r="1.7" fill="currentColor"/>
+    <path d="M21.8 21.5C15.5 11.6 5.6 8.6 3.8 15.1 2.2 21 9.9 27.8 21.8 28.6Z" fill="currentColor"/>
+    <path d="M26.2 21.5C32.5 11.6 42.4 8.6 44.2 15.1 45.8 21 38.1 27.8 26.2 28.6Z" fill="currentColor"/>
+    <path d="M21.6 31C14.2 30.6 8.3 34.1 9.4 38.9 10.5 43.4 17.8 42.4 21.8 35.8Z" fill="currentColor"/>
+    <path d="M26.4 31C33.8 30.6 39.7 34.1 38.6 38.9 37.5 43.4 30.2 42.4 26.2 35.8Z" fill="currentColor"/>
+    <rect x="21.5" y="16.5" width="5" height="24.5" rx="2.5" fill="currentColor"/>
+    <circle cx="24" cy="13.6" r="3.6" fill="currentColor"/>
+  </symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><polyline points="4 12.5 9.5 18 20 6.5"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><line x1="6" y1="6" x2="18" y2="18"/><line x1="18" y1="6" x2="6" y2="18"/></symbol>
+  <symbol id="i-zap" viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10"/></symbol>
+  <symbol id="i-cpu" viewBox="0 0 24 24"><rect x="5" y="5" width="14" height="14" rx="2.5"/><rect x="9.5" y="9.5" width="5" height="5"/><line x1="12" y1="2" x2="12" y2="5"/><line x1="12" y1="19" x2="12" y2="22"/><line x1="2" y1="12" x2="5" y2="12"/><line x1="19" y1="12" x2="22" y2="12"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M13.5 2.5H6.5a1.5 1.5 0 0 0-1.5 1.5v16a1.5 1.5 0 0 0 1.5 1.5h11a1.5 1.5 0 0 0 1.5-1.5V8z"/><polyline points="13.5 2.5 13.5 8 19 8"/></symbol>
+  <symbol id="i-disc" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><circle cx="12" cy="12" r="2.6"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><polyline points="12 7 12 12 15.2 14"/></symbol>
+  <symbol id="i-folder" viewBox="0 0 24 24"><path d="M3 7.5A2 2 0 0 1 5 5.5h4.2l2 2.2H19a2 2 0 0 1 2 2v8.3a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></symbol>
+  <symbol id="i-music" viewBox="0 0 24 24"><path d="M9 18.5V5.8l11-2.1v12.6"/><circle cx="6.4" cy="18.6" r="2.6"/><circle cx="17.4" cy="16.4" r="2.6"/></symbol>
+  <symbol id="i-film" viewBox="0 0 24 24"><rect x="2.5" y="3.5" width="19" height="17" rx="2.5"/><line x1="7.5" y1="3.5" x2="7.5" y2="20.5"/><line x1="16.5" y1="3.5" x2="16.5" y2="20.5"/><line x1="2.5" y1="12" x2="21.5" y2="12"/></symbol>
+  <symbol id="i-img" viewBox="0 0 24 24"><rect x="3" y="3.5" width="18" height="17" rx="2.5"/><circle cx="9" cy="9.4" r="1.8"/><path d="M3.5 17.5 9.8 12l4.4 4 2.8-2.4 3.5 3"/></symbol>
+  <symbol id="i-doc" viewBox="0 0 24 24"><path d="M13.5 2.5H6.5A1.5 1.5 0 0 0 5 4v16a1.5 1.5 0 0 0 1.5 1.5h11A1.5 1.5 0 0 0 19 20V8z"/><line x1="8.5" y1="13" x2="15.5" y2="13"/><line x1="8.5" y1="17" x2="13.5" y2="17"/></symbol>
+  <symbol id="i-arch" viewBox="0 0 24 24"><path d="M4 8.5h16"/><path d="M5.5 8.5V19a1.5 1.5 0 0 0 1.5 1.5h10a1.5 1.5 0 0 0 1.5-1.5V8.5"/><path d="M3.5 4.5h17v4h-17z"/><line x1="10" y1="12.5" x2="14" y2="12.5"/></symbol>
+  <symbol id="i-box" viewBox="0 0 24 24"><path d="M21 8.2 12 3 3 8.2v7.6L12 21l9-5.2z"/><polyline points="3 8.2 12 13.4 21 8.2"/><line x1="12" y1="13.4" x2="12" y2="21"/></symbol>
+  <symbol id="i-dots" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="19" cy="12" r="1.4" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24"><path d="M10.2 13.2a4.6 4.6 0 0 0 6.5 0l3-3a4.6 4.6 0 0 0-6.5-6.5l-1.5 1.5"/><path d="M13.8 10.8a4.6 4.6 0 0 0-6.5 0l-3 3a4.6 4.6 0 0 0 6.5 6.5l1.5-1.5"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 2.5 20 6v6c0 5-3.4 8.4-8 9.9C7.4 20.4 4 17 4 12V6z"/><polyline points="8.7 12 11 14.3 15.5 9.5"/></symbol>
+  <symbol id="i-lock" viewBox="0 0 24 24"><rect x="4.5" y="10.5" width="15" height="10" rx="2.2"/><path d="M8 10.5V7.2a4 4 0 0 1 8 0v3.3"/></symbol>
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="8" cy="15.5" r="4.2"/><path d="M11 12.5 20.5 3M16.5 7l3 3M14 9.5l2.5 2.5"/></symbol>
+  <symbol id="i-term" viewBox="0 0 24 24"><polyline points="4.5 17 10 11.5 4.5 6"/><line x1="12.5" y1="18.5" x2="20" y2="18.5"/></symbol>
+  <symbol id="i-down" viewBox="0 0 24 24"><path d="M12 3v12.5"/><polyline points="6 10.5 12 16.5 18 10.5"/><line x1="4.5" y1="21" x2="19.5" y2="21"/></symbol>
+  <symbol id="i-gauge" viewBox="0 0 24 24"><path d="M4 15a8.5 8.5 0 1 1 16 0"/><line x1="12" y1="15" x2="16" y2="9.5"/><line x1="3.5" y1="19" x2="20.5" y2="19"/></symbol>
+  <symbol id="i-sliders" viewBox="0 0 24 24"><line x1="6" y1="3" x2="6" y2="21"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="18" y1="3" x2="18" y2="21"/><circle cx="6" cy="9" r="2" fill="var(--bg)"/><circle cx="12" cy="15" r="2" fill="var(--bg)"/><circle cx="18" cy="7" r="2" fill="var(--bg)"/></symbol>
+  <symbol id="i-pause" viewBox="0 0 24 24"><line x1="9" y1="5.5" x2="9" y2="18.5"/><line x1="15" y1="5.5" x2="15" y2="18.5"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M21 4.5v5.5h-5.5"/><path d="M20.3 10a8.5 8.5 0 0 0-14.7-3.6L3 9"/><path d="M3 19.5V14h5.5"/><path d="M3.7 14a8.5 8.5 0 0 0 14.7 3.6L21 15"/></symbol>
+  <symbol id="i-hash" viewBox="0 0 24 24"><line x1="4.5" y1="9.5" x2="19.5" y2="9.5"/><line x1="4.5" y1="14.5" x2="19.5" y2="14.5"/><line x1="10" y1="3.5" x2="8" y2="20.5"/><line x1="16" y1="3.5" x2="14" y2="20.5"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><line x1="3.2" y1="12" x2="20.8" y2="12"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><line x1="5.8" y1="5.8" x2="18.2" y2="18.2"/></symbol>
+  <symbol id="i-cloudoff" viewBox="0 0 24 24"><path d="M17.5 18.5H6.2a4 4 0 0 1-.6-7.9A6 6 0 0 1 16 8.4a4.6 4.6 0 0 1 3 7.4"/><line x1="3.5" y1="3.5" x2="20.5" y2="20.5"/></symbol>
+  <symbol id="i-puzzle" viewBox="0 0 24 24"><path d="M9 4.5a2 2 0 1 1 4 0H15a1.5 1.5 0 0 1 1.5 1.5v2.5a2 2 0 1 1 0 4V15a1.5 1.5 0 0 1-1.5 1.5h-2.5a2 2 0 1 0-4 0H6A1.5 1.5 0 0 1 4.5 15v-2.5"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 13.3A8.5 8.5 0 1 1 10.7 3.5a7 7 0 0 0 9.8 9.8z"/></symbol>
+  <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 21a9 9 0 1 1 9-9c0 2.5-2 3.5-3.5 3.5H15a2 2 0 0 0-1.5 3.3c.4.5.2 2.2-1.5 2.2z"/><circle cx="7.6" cy="12.4" r="1.2" fill="currentColor" stroke="none"/><circle cx="10" cy="7.8" r="1.2" fill="currentColor" stroke="none"/><circle cx="15" cy="7.5" r="1.2" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-addr" viewBox="0 0 24 24"><polyline points="9 6 15 12 9 18"/></symbol>
+  <symbol id="i-grip" viewBox="0 0 24 24"><circle cx="9" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="15" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="9" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="9" cy="18" r="1.3" fill="currentColor" stroke="none"/><circle cx="15" cy="18" r="1.3" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-win" viewBox="0 0 24 24"><path d="M3 5.8l7.2-1v6.9H3zM11.2 4.6 21 3.3v8.4h-9.8zM3 12.7h7.2v6.9L3 18.5zM11.2 12.7H21v8.4l-9.8-1.3z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-apple" viewBox="0 0 24 24"><path d="M16.6 13c0-2.4 2-3.6 2.1-3.7-1.1-1.7-2.9-1.9-3.5-2-1.5-.2-2.9.9-3.7.9-.8 0-1.9-.9-3.2-.8-1.6 0-3.1 1-4 2.4-1.7 3-.4 7.4 1.2 9.8.8 1.2 1.8 2.5 3 2.4 1.2 0 1.7-.8 3.2-.8s1.9.8 3.2.8c1.3 0 2.2-1.2 3-2.4.9-1.4 1.3-2.7 1.3-2.8-.1 0-2.6-1-2.6-3.8zM14.2 5.7c.7-.8 1.1-2 1-3.2-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.5 2.9-1.3z" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-tux" viewBox="0 0 24 24"><path d="M12 2.8c-2.6 0-3.8 2-3.6 4.5.1 1.7.3 2.6-.7 4.3-1 1.7-2.3 3.5-2.3 5.4 0 1.4.7 2.6 1.8 3.2.1-1.6 1-2.8 1.6-2.6-.5.9-.7 2.3 0 3.4.8 1.2 2.1 1.4 3.2 1.4s2.4-.2 3.2-1.4c.7-1.1.5-2.5 0-3.4.6-.2 1.5 1 1.6 2.6 1.1-.6 1.8-1.8 1.8-3.2 0-1.9-1.3-3.7-2.3-5.4-1-1.7-.8-2.6-.7-4.3.2-2.5-1-4.5-3.6-4.5z"/><circle cx="10" cy="8.2" r=".9" fill="currentColor" stroke="none"/><circle cx="14" cy="8.2" r=".9" fill="currentColor" stroke="none"/><path d="M10.5 11.5c.5.5 1 .7 1.5.7s1-.2 1.5-.7"/></symbol>
+</svg>
+
+<!-- ======= nav ======= -->
+<nav id="nav">
+  <div class="nav-in">
+    <a class="brand" href="#top" style="color:var(--ink)"><svg class="moth"><use href="#moth"/></svg>Moth<span class="v">v1.0.0</span></a>
+    <div class="nav-links">
+      <a href="#integrity">Integrity</a><a href="#engines">Engines</a><a href="#flow">Flow</a>
+      <a href="#control">Control</a><a href="#cli">CLI</a><a href="#limits">Limits</a>
+    </div>
+    <div class="nav-right">
+      <div class="pop-wrap">
+        <button class="icon-btn" id="themeBtn" aria-label="Change theme"><svg class="ic"><use href="#i-palette"/></svg></button>
+        <div class="pop" id="themePop">
+          <button data-t="graphite"><span class="sw" style="background:#131a2d"></span>Graphite<span class="tag">DEFAULT</span></button>
+          <button data-t="amber"><span class="sw" style="background:#ecb767"></span>Moth Amber</button>
+          <button data-t="midnight"><span class="sw" style="background:#050507"></span>Midnight</button>
+          <button data-t="fieldnotes"><span class="sw" style="background:#f2ede0"></span>Fieldnotes</button>
+          <button data-t="system"><span class="sw" style="background:linear-gradient(135deg,#131a2d 50%,#f2ede0 50%)"></span>System<span class="tag">OS</span></button>
+        </div>
+      </div>
+      <a class="btn btn-primary btn-sm" href="#download"><svg class="ic"><use href="#i-down"/></svg>Download</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ======= hero ======= -->
+<header class="hero" id="top">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <div class="eyebrow rv">Moth Download Manager · MIT</div>
+      <h1 class="rv" style="--d:.06s">It will not hand you a <span class="u">corrupt file</span>.</h1>
+      <p class="lede rv" style="--d:.12s">Most managers track one byte counter — and hope it reached the disk. Moth tracks a <strong>bitmap of verified byte ranges</strong>, committed only after the bytes are fsync'd. If a source can't be verified, Moth restarts it rather than risk the file.</p>
+      <div class="hero-cta rv" style="--d:.18s">
+        <a class="btn btn-primary" href="#download"><svg class="ic"><use href="#i-down"/></svg>Download for your platform</a>
+        <a class="btn btn-ghost" href="#integrity">See the ordering rule</a>
+      </div>
+      <div class="hero-strip rv" style="--d:.24s">
+        <span>Windows 10/11</span><span>macOS 11+</span><span>Linux</span><span>Electron 44</span><span>React 19</span><span>node:sqlite</span><span>no native addons</span>
+      </div>
+    </div>
+
+    <div class="sim rv" id="simCard" style="--d:.15s">
+      <div class="sim-top">
+        <div class="sim-ico"><svg class="ic"><use href="#i-disc"/></svg></div>
+        <div class="sim-name">
+          <b><span id="simName">debian-13.0.0-amd64.iso</span><span class="sim-part" id="simPart">.mothpart</span></b>
+          <div class="badges"><span class="pill i"><span class="dot"></span>HTTP</span><span class="pill g" id="simPill"><span class="dot pulse"></span>Active</span></div>
+        </div>
+        <div class="sim-right"><b id="simPct">0%</b><span id="simSize">2.56 GB</span></div>
+      </div>
+      <div class="sim-grid" id="simGrid"></div>
+      <div class="sim-status"><span id="simSpd">0.0 MB/s</span><span class="lim" id="simMeta">0 / 320 chunks · 8 conn · safe resume</span></div>
+      <canvas id="simCv"></canvas>
+      <div class="sim-log" id="simLog"></div>
+      <div class="sim-actions">
+        <button class="btn btn-ghost btn-sm" id="btnCut"><svg class="ic"><use href="#i-zap"/></svg>Cut the connection</button>
+        <button class="btn btn-ghost btn-sm" id="btnFlip"><svg class="ic"><use href="#i-cpu"/></svg>Flip a bit on disk</button>
+        <span class="hint">go on — ruin its day. it'll be fine.</span>
+      </div>
+      <div class="sim-foot"><span id="sfConn">8 conn</span><span>0 queued</span><span>46.8 GB free</span><span id="sfUp">up 23m 30s</span><span>v1.0.0</span></div>
+    </div>
+  </div>
+</header>
+
+<main>
+<!-- ======= integrity ======= -->
+<section id="integrity">
+  <div class="wrap">
+    <div class="eyebrow rv">01 · Integrity</div>
+    <h2 class="rv" style="--d:.05s">One ordering rule, enforced everywhere.</h2>
+    <p class="lede rv" style="--d:.1s">A chunk is only marked complete in the database <strong>after its bytes have been fsync'd to disk</strong>. The database runs in WAL mode with <strong>synchronous=FULL</strong> — so a committed complete row is a durable promise that the bytes really are on the platter.</p>
+
+    <div class="steps rv" id="steps">
+      <div class="step"><div class="n">01 — WRITE</div><h3>Bytes land</h3><p>Data is written into the staged <span class="mono" style="font-size:12.5px">.mothpart</span> file — never the final name.</p></div>
+      <div class="step"><div class="n">02 — FSYNC</div><h3>The OS flushes</h3><p>The OS is told to push the bytes all the way down to the disk. Not "soon". Now.</p></div>
+      <div class="step"><div class="n">03 — COMMIT</div><h3>Only then, complete</h3><p>The chunk is marked complete in the database — a row that survives a power cut.</p></div>
+    </div>
+
+    <div class="gcards">
+      <div class="gcard rv"><div class="gi"><svg class="ic"><use href="#i-refresh"/></svg></div><h3>Re-digested on restart</h3><p>Recovery re-hashes every completed chunk on startup. Anything that doesn't match is discarded and re-downloaded — silent disk rot gets caught, not trusted. <span class="mono" style="font-size:11px;color:var(--ink3)">capped at 512 MB per download; larger downloads are sampled</span></p></div>
+      <div class="gcard rv" style="--d:.07s"><div class="gi"><svg class="ic"><use href="#i-link"/></svg></div><h3>Source identity</h3><p><code>ETag</code> and <code>Last-Modified</code> go back as <code>If-Range</code>. If the remote file changed, progress is discarded — bytes from two versions of one file must never be stitched together.</p></div>
+      <div class="gcard rv" style="--d:.14s"><div class="gi"><svg class="ic"><use href="#i-hash"/></svg></div><h3>Checksums, four of them</h3><p>MD5, SHA-1, SHA-256 and SHA-512 verification — plus a fast CRC-32 watching for chunk-level corruption in flight.</p></div>
+      <div class="gcard rv" style="--d:.21s"><div class="gi"><svg class="ic"><use href="#i-eye"/></svg></div><h3>Honest about weak validators</h3><p>An ETag is a server validator, not a cryptographic checksum. A digest without an expected value is a fingerprint, not proof. The interface draws that line instead of hiding it.</p></div>
+    </div>
+
+    <div class="istats rv">
+      <div class="istat"><b>32</b><span>connections per download — the hard cap</span></div>
+      <div class="istat"><b>4</b><span>digest algorithms, plus CRC-32 per chunk</span></div>
+      <div class="istat"><b>512 MB</b><span>re-verify cap per download; larger downloads are sampled</span></div>
+      <div class="istat"><b>0</b><span>corrupt files handed over — by design</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= engines ======= -->
+<section id="engines">
+  <div class="wrap">
+    <div class="eyebrow rv">02 · Engines</div>
+    <h2 class="rv" style="--d:.05s">Three engines. One queue.</h2>
+    <p class="lede rv" style="--d:.1s">HTTP, media and torrents share the same queue, the same status vocabulary, the same controls. Each carries its own badge, because each counts progress its own way.</p>
+
+    <div class="tabs rv" role="tablist">
+      <button class="tab on" data-tab="http" role="tab">HTTP</button>
+      <button class="tab" data-tab="media" role="tab">Media</button>
+      <button class="tab" data-tab="torrent" role="tab">Torrent</button>
+    </div>
+
+    <div class="ep on" data-panel="http">
+      <div>
+        <h3>The range engine</h3>
+        <ul class="blist">
+          <li><svg class="ic"><use href="#i-check"/></svg><span><b>Parallel Range requests</b> — up to 32 connections per download, chunk planning sized to the file.</span></li>
+          <li><svg class="ic"><use href="#i-check"/></svg><span><b>GCRA rate limiting</b> — the exact long-run rate with no bursts, enforceable even at very low speeds where a naive token bucket stalls.</span></li>
+          <li><svg class="ic"><use href="#i-check"/></svg><span><b>Refreshed links keep progress</b> — replace a dead URL; partial data is kept when size and a strong ETag still match.</span></li>
+          <li><svg class="ic"><use href="#i-check"/></svg><span>A server that refuses Range is labelled <b>no resume</b> up front, and downloads as a single stream.</span></li>
+        </ul>
+      </div>
+      <div class="evisual">
+        <div class="fmap" id="fmap"></div>
+        <div class="cap" id="fmapCap">8 connections · chunk planning · one file, many fronts</div>
+        <svg class="gcra draw" id="gcra" viewBox="0 0 320 96">
+          <text x="0" y="9" fill="var(--amber)">token bucket — bursts</text>
+          <path d="M0,44 20,16 40,44 60,16 80,44 100,16 120,44 140,16 160,44 180,16 200,44 220,16 240,44 260,16 280,44 300,16 320,44" fill="none" stroke="var(--amber)" stroke-width="1.6"/>
+          <text x="0" y="70" fill="var(--green)">gcra — the exact long-run rate</text>
+          <path d="M0,86 320,86" fill="none" stroke="var(--green)" stroke-width="1.8"/>
+        </svg>
+        <div class="cap">smooth shaping vs. bursty shaping, over the same window</div>
+      </div>
+    </div>
+
+    <div class="ep" data-panel="media">
+      <div>
+        <h3>The media pipeline</h3>
+        <ul class="blist">
+          <li><svg class="ic"><use href="#i-check"/></svg><span><b>Stream selection</b> — video quality, audio output format, subtitle languages, filename templates.</span></li>
+          <li><svg class="ic"><use href="#i-check"/></svg><span><b>Playlist browsing</b> with per-entry thumbnails and titles.</span></li>
+          <li><svg class="ic"><use href="#i-check"/></svg><span>Output is staged, then <b>the decode is verified</b> before the video is declared finished.</span></li>
+          <li><svg class="ic"><use href="#i-check"/></svg><span><b>No HLS / .m3u8 support.</b> Segmented playback needs a playlist parser, a segment fetcher, AES-128 decryption and a container remux — a project in its own right.</span></li>
+          <li><svg class="ic"><use href="#i-globe"/></svg><span><b>Content-agnostic transport.</b> Streams are passed through as bytes; Moth does not inspect, filter, or refuse a payload by what it contains — and never decrypts one.</span></li>
+        </ul>
+      </div>
+      <div class="evisual">
+        <div class="pipe">
+          <div class="pnode" data-pn>link</div><span class="parrow">→</span>
+          <div class="pnode" data-pn>yt-dlp</div><span class="parrow">→</span>
+          <div class="pnode" data-pn>FFmpeg</div><span class="parrow">→</span>
+          <div class="pnode" data-pn>decode check</div><span class="parrow">→</span>
+          <div class="pnode" data-pn>video.mp4</div>
+        </div>
+        <div class="pstreams">
+          <span>1080p video</span><span>m4a audio</span><span>en · de subs</span>
+          <em>three streams in, one mux out — fragments fetched in parallel</em>
+        </div>
+        <div class="cap" style="margin-top:20px">a link goes in; a verified decode comes out. anything less is not "finished".</div>
+      </div>
+    </div>
+
+    <div class="ep" data-panel="torrent">
+      <div>
+        <h3>Torrents through Transmission</h3>
+        <ul class="blist">
+          <li><svg class="ic"><use href="#i-check"/></svg><span><b>v1 / v2 magnets</b> and .torrent files, through a bundled Transmission daemon.</span></li>
+          <li><svg class="ic"><use href="#i-check"/></svg><span><b>Authenticated RPC bound to loopback</b> — private daemon configuration.</span></li>
+          <li><svg class="ic"><use href="#i-check"/></svg><span><b>Per-file selection</b> and per-torrent caps; pause and resume through the normal queue controls.</span></li>
+          <li><svg class="ic"><use href="#i-check"/></svg><span>Torrents carry their own badge — Transmission tracks <b>pieces, not chunks</b>.</span></li>
+          <li><svg class="ic"><use href="#i-check"/></svg><span><b>Windows x64 only</b> — the only platform whose package bundles the daemon.</span></li>
+        </ul>
+      </div>
+      <div class="evisual">
+        <div class="pgrid" id="pgrid"></div>
+        <div class="cap" style="margin:10px 0 18px">pieces (Transmission) — not the same thing as chunks (HTTP)</div>
+        <label class="tfile"><input type="checkbox" checked><span class="box"><svg class="ic"><use href="#i-check"/></svg></span>Manor.Lords/data.pak<span class="sz">88.2 MB</span></label>
+        <label class="tfile"><input type="checkbox" checked><span class="box"><svg class="ic"><use href="#i-check"/></svg></span>setup.exe<span class="sz">4.1 MB</span></label>
+        <label class="tfile"><input type="checkbox"><span class="box"><svg class="ic"><use href="#i-check"/></svg></span>soundtrack.flac<span class="sz">32.0 MB</span></label>
+        <div class="tsel-sum" id="tselSum">2 of 3 files selected · 92.3 MB</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= flow ======= -->
+<section id="flow">
+  <div class="wrap">
+    <div class="eyebrow rv">03 · Flow</div>
+    <h2 class="rv" style="--d:.05s">Every transfer, hung off the gateway.</h2>
+    <p class="lede rv" style="--d:.1s">Flow mode is the whole queue as one picture — top-down from the WAN node: percentage, live speed, verified chunks. <span style="color:var(--ink3)">(a faithful recreation of the app's view — hover a card)</span></p>
+
+    <div class="flow-stage rv" id="flowStage" style="--d:.15s">
+      <div class="flow-toprow" style="position:absolute;left:0;right:0;top:0;z-index:6;display:flex;justify-content:space-between;align-items:center;padding:16px 18px">
+        <span class="pill i" id="flowPill"><span class="dot pulse"></span>1.5 MB/s · 3 files · 3 active</span>
+        <button class="btn btn-ghost btn-sm flow-reset" id="flowReset">Reset</button>
+      </div>
+      <svg class="flow-svg" viewBox="0 0 1000 560" preserveAspectRatio="none" aria-hidden="true">
+        <path id="fp0" d="M500,132 C500,196 190,186 190,262"/>
+        <path id="fp1" d="M500,132 C500,196 810,186 810,262"/>
+        <path id="fp2" d="M500,132 C500,236 500,320 500,428"/>
+        <circle r="3.4" fill="var(--accent)"><animateMotion dur="2.7s" repeatCount="indefinite" path="M500,132 C500,196 190,186 190,262"/></circle>
+        <circle r="2.4" fill="var(--accent)" opacity=".55"><animateMotion dur="2.7s" begin="1.35s" repeatCount="indefinite" path="M500,132 C500,196 190,186 190,262"/></circle>
+        <circle r="3.4" fill="var(--accent)"><animateMotion dur="3.1s" begin=".5s" repeatCount="indefinite" path="M500,132 C500,196 810,186 810,262"/></circle>
+        <circle r="2.4" fill="var(--accent)" opacity=".55"><animateMotion dur="3.1s" begin="2s" repeatCount="indefinite" path="M500,132 C500,196 810,186 810,262"/></circle>
+        <circle r="3.4" fill="var(--accent)"><animateMotion dur="2.2s" begin=".2s" repeatCount="indefinite" path="M500,132 C500,236 500,320 500,428"/></circle>
+        <circle r="2.4" fill="var(--accent)" opacity=".55"><animateMotion dur="2.2s" begin="1.1s" repeatCount="indefinite" path="M500,132 C500,236 500,320 500,428"/></circle>
+      </svg>
+      <div class="wan">WAN</div><div class="wan-cap">INTERNET GATEWAY</div>
+      <span class="fnode" style="left:19%;top:46.8%"></span>
+      <span class="fnode" style="left:81%;top:46.8%"></span>
+      <span class="fnode" style="left:50%;top:76.4%"></span>
+
+      <div class="fcard" style="left:19%;top:46.8%" data-fc="0">
+        <div class="fh"><svg class="ic"><use href="#i-file"/></svg><b>Manor.Lords.RePack</b><span class="pill i">TORRENT</span></div>
+        <div class="fring"><svg width="76" height="76" viewBox="0 0 76 76"><circle class="tr" cx="38" cy="38" r="31" fill="none" stroke-width="5"/><circle class="pr" id="fring0" cx="38" cy="38" r="31" fill="none" stroke-width="5" stroke-linecap="round" stroke-dasharray="194.8" stroke-dashoffset="168"/></svg><b id="fpct0">2%</b></div>
+        <div class="ffoot" id="ffoot0">776.0 KB/s · Transmission · 95.4 MB</div>
+      </div>
+      <div class="fcard" style="left:81%;top:46.8%" data-fc="1">
+        <div class="fh"><svg class="ic"><use href="#i-file"/></svg><b>Windows Server 2019 AIO…</b><span class="pill g"><span class="dot pulse"></span>HTTP</span></div>
+        <div class="fring"><svg width="76" height="76" viewBox="0 0 76 76"><circle class="tr" cx="38" cy="38" r="31" fill="none" stroke-width="5"/><circle class="pr" id="fring1" cx="38" cy="38" r="31" fill="none" stroke-width="5" stroke-linecap="round" stroke-dasharray="194.8" stroke-dashoffset="190"/></svg><b id="fpct1">1%</b></div>
+        <div class="ffoot" id="ffoot1">541.9 KB/s · 15 / 2233 chunks verified</div>
+      </div>
+      <div class="fcard" style="left:50%;top:76.4%" data-fc="2">
+        <div class="fh"><svg class="ic"><use href="#i-file"/></svg><b>fieldnotes-interview-4k.mp4</b><span class="pill v">MEDIA</span></div>
+        <div class="fring"><svg width="76" height="76" viewBox="0 0 76 76"><circle class="tr" cx="38" cy="38" r="31" fill="none" stroke-width="5"/><circle class="pr" id="fring2" cx="38" cy="38" r="31" fill="none" stroke-width="5" stroke-linecap="round" stroke-dasharray="194.8" stroke-dashoffset="80"/></svg><b id="fpct2">59%</b></div>
+        <div class="ffoot" id="ffoot2">183.2 KB/s · yt-dlp · 482 MB</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= pull quote ======= -->
+<div class="quote">
+  <div class="wrap rv">
+    <p>“Progress is never worth <em>a file you cannot trust</em>.”</p>
+    <div class="who">— the one rule</div>
+  </div>
+</div>
+
+<!-- ======= control ======= -->
+<section id="control">
+  <div class="wrap">
+    <div class="eyebrow rv">04 · Control</div>
+    <h2 class="rv" style="--d:.05s">A queue that behaves.</h2>
+    <p class="lede rv" style="--d:.1s">Priorities, plans, focus and limits — bandwidth shaped rather than bursty, and the queue wakes up when you tell it to.</p>
+
+    <div class="bento">
+      <div class="bcard wide rv"><div class="bi"><svg class="ic"><use href="#i-clock"/></svg></div><h3>Download plans</h3><p>One-off run plans for timed groups — a start time and a duration from 15 minutes to 30 days. Scheduled, running, completed, canceled; canceling hands its downloads back to the normal queue. Presets include Overnight downloads.</p>
+        <div class="bviz">
+          <div class="ruler"><div class="plan-block">OVERNIGHT · 4 TRANSFERS</div></div>
+          <div class="ruler-l"><span>00:00</span><span>03:00</span><span>06:00</span><span>09:00</span><span>12:00</span><span>15:00</span><span>18:00</span><span>21:00</span><span>24:00</span></div>
+        </div>
+      </div>
+      <div class="bcard rv" style="--d:.07s"><div class="bi"><svg class="ic"><use href="#i-gauge"/></svg></div><h3>Focus mode</h3><p>Promote specific transfers to the front and temporarily cap everything else — without pausing a single transfer.</p>
+        <div class="bviz">
+          <div class="frow promoted"><svg class="ic" style="font-size:13px"><use href="#i-zap"/></svg>ubuntu-24.04.2.iso<span class="pill g">FULL SPEED</span></div>
+          <div class="frow" style="opacity:.55">archive-set-04.tar<span class="pill a">CAPPED</span></div>
+          <div class="frow" style="opacity:.55">backup-home.zst<span class="pill a">CAPPED</span></div>
+        </div>
+      </div>
+      <div class="bcard rv"><div class="bi"><svg class="ic"><use href="#i-sliders"/></svg></div><h3>Smooth shaping</h3><p>Per-download and global limits shaped by a GCRA limiter — the exact long-run rate, no bursts, enforceable at very low speeds.</p></div>
+      <div class="bcard rv" style="--d:.07s"><div class="bi"><svg class="ic"><use href="#i-link"/></svg></div><h3>Review queue</h3><p>Links are looked up in the background before they start — size, validator, Range support — so Waiting means known.</p></div>
+      <div class="bcard rv" style="--d:.14s"><div class="bi"><svg class="ic"><use href="#i-grip"/></svg></div><h3>Priorities & reordering</h3><p>Drag the queue. Priorities stick.</p>
+        <div class="bviz">
+          <div class="frow"><span class="grip">⠿</span>1 · iso<span class="pill g">HIGH</span></div>
+          <div class="frow drag"><span class="grip">⠿</span>2 · mp4<span class="pill a">NORM</span></div>
+          <div class="frow"><span class="grip">⠿</span>3 · flac<span class="pill">LOW</span></div>
+        </div>
+      </div>
+      <div class="bcard rv" style="--d:.21s"><div class="bi"><svg class="ic"><use href="#i-moon"/></svg></div><h3>Scheduled starts</h3><p>A per-download “Start at” time.</p>
+        <div class="bviz"><div class="moonline"><svg class="ic"><use href="#i-moon"/></svg>start at 03:00</div></div>
+      </div>
+      <div class="bcard rv"><div class="bi"><svg class="ic"><use href="#i-shield"/></svg></div><h3>The safety net</h3>
+        <div class="bviz" style="border:none;padding-top:4px;margin-top:8px">
+          <div class="trow">Verify on completion<button class="tgl on" role="switch" aria-checked="true" aria-label="Verify on completion"></button></div>
+          <div class="trow">Re-check downloads after restart<button class="tgl on" role="switch" aria-checked="true" aria-label="Re-check after restart"></button></div>
+          <div class="trow">Check partial files on disk<button class="tgl on" role="switch" aria-checked="true" aria-label="Check partials on disk"></button></div>
+        </div>
+      </div>
+      <div class="bcard wide rv" style="--d:.07s"><div class="bi"><svg class="ic"><use href="#i-pause"/></svg></div><h3>Queue actions — and what happens after</h3><p>Pause all, Resume all, Check files, Clear done. And when the queue drains, Moth can end the night for you.</p>
+        <div class="bviz"><div class="chips"><span class="pill g">SLEEP</span><span class="pill">HIBERNATE</span><span class="pill">SHUT DOWN</span><span class="pill">DO NOTHING</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= library ======= -->
+<section id="library">
+  <div class="wrap">
+    <div class="eyebrow rv">05 · Library</div>
+    <h2 class="rv" style="--d:.05s">A library, not a landfill.</h2>
+    <p class="lede rv" style="--d:.1s">Auto-categorised by extension, content-type fallback for bare URLs. Named library roots browsable from the sidebar, per-download destination picking, and metadata that reads and writes ID3v2.3 and MP4 tags — artwork included. <span style="color:var(--ink3)">Try the categories.</span></p>
+
+    <div class="lib-grid">
+      <div class="panel rv">
+        <div class="cats" id="cats">
+          <button class="cat on" data-f="all">All <i>9</i></button>
+          <button class="cat" data-f="music"><svg class="ic"><use href="#i-music"/></svg>Music <i>2</i></button>
+          <button class="cat" data-f="video"><svg class="ic"><use href="#i-film"/></svg>Video <i>1</i></button>
+          <button class="cat" data-f="images"><svg class="ic"><use href="#i-img"/></svg>Images <i>1</i></button>
+          <button class="cat" data-f="documents"><svg class="ic"><use href="#i-doc"/></svg>Documents <i>1</i></button>
+          <button class="cat" data-f="archives"><svg class="ic"><use href="#i-arch"/></svg>Archives <i>3</i></button>
+          <button class="cat" data-f="exec"><svg class="ic"><use href="#i-box"/></svg>Executables <i>0</i></button>
+          <button class="cat" data-f="inst"><svg class="ic"><use href="#i-box"/></svg>Installers <i>1</i></button>
+          <button class="cat" data-f="other"><svg class="ic"><use href="#i-dots"/></svg>Other <i>0</i></button>
+        </div>
+        <div class="flist" id="flist">
+          <div class="frow2" data-cat="archives"><svg class="ic"><use href="#i-disc"/></svg><b>ubuntu-24.04.2-desktop-amd64.iso</b><span class="rt">ISO shelf</span><span class="sz">5.9 GB</span></div>
+          <div class="frow2" data-cat="music"><svg class="ic"><use href="#i-music"/></svg><b>EEYUH! x Fluxxwave (Slowed + Reverb).mp3</b><span class="rt">Media vault</span><span class="sz">3.6 MB</span></div>
+          <div class="frow2" data-cat="archives"><svg class="ic"><use href="#i-arch"/></svg><b>Manor.Lords.RePack</b><span class="rt">Default folder</span><span class="sz">95.4 MB</span></div>
+          <div class="frow2" data-cat="archives"><svg class="ic"><use href="#i-disc"/></svg><b>windows-server-2019-aio-6in1.iso</b><span class="rt">ISO shelf</span><span class="sz">4.7 GB</span></div>
+          <div class="frow2" data-cat="video"><svg class="ic"><use href="#i-film"/></svg><b>fieldnotes-interview-4k.mp4</b><span class="rt">Media vault</span><span class="sz">482 MB</span></div>
+          <div class="frow2" data-cat="music"><svg class="ic"><use href="#i-music"/></svg><b>ambient-set-2025-05-12.flac</b><span class="rt">Media vault</span><span class="sz">412 MB</span></div>
+          <div class="frow2" data-cat="images"><svg class="ic"><use href="#i-img"/></svg><b>luna-moth-plate-04.png</b><span class="rt">Media vault</span><span class="sz">8.2 MB</span></div>
+          <div class="frow2" data-cat="documents"><svg class="ic"><use href="#i-doc"/></svg><b>rfc9110-http-semantics.pdf</b><span class="rt">ISO shelf</span><span class="sz">1.1 MB</span></div>
+          <div class="frow2" data-cat="inst"><svg class="ic"><use href="#i-box"/></svg><b>moth-1.0.0-setup.exe</b><span class="rt">Default folder</span><span class="sz">88 MB</span></div>
+        </div>
+      </div>
+      <div class="rootc rv" style="--d:.08s">
+        <div class="root"><svg class="ic"><use href="#i-folder"/></svg><div><b>Media vault</b><span>D:\Media</span></div><span class="cnt">1,204 files</span></div>
+        <div class="root"><svg class="ic"><use href="#i-folder"/></svg><div><b>ISO shelf</b><span>/mnt/archive</span></div><span class="cnt">87 files</span></div>
+        <div class="root dashed"><svg class="ic"><use href="#i-folder"/></svg><div><b>Default folder</b><span>~/Downloads — always available</span></div></div>
+        <div class="root" style="border-style:dashed"><svg class="ic"><use href="#i-music"/></svg><div><b>Tags & artwork</b><span>ID3v2.3 + MP4 write · MP3, FLAC, Ogg, MP4 — reading is broader</span></div></div>
+        <div class="root" style="border-style:dashed"><svg class="ic"><use href="#i-refresh"/></svg><div><b>Track moved finished files</b><span>move it elsewhere — Moth adopts it</span></div><button class="tgl on" role="switch" aria-checked="true" aria-label="Track moved files"></button></div>
+        <div class="root" style="border-style:dashed"><svg class="ic"><use href="#i-folder"/></svg><div><b>Organise into type folders</b><span>underneath each library root</span></div><button class="tgl on" role="switch" aria-checked="true" aria-label="Type folders"></button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= connect ======= -->
+<section id="connect">
+  <div class="wrap">
+    <div class="eyebrow rv">06 · Connect</div>
+    <h2 class="rv" style="--d:.05s">It meets your browser where it is.</h2>
+    <p class="lede rv" style="--d:.1s">A desktop app cannot silently intercept Chrome's downloads — there is no OS hook for it. So Moth ships an extension, the same way IDM, JDownloader and Free Download Manager do. It pairs with the running app over a loopback-only endpoint, guarded by a 32-byte CSPRNG token compared in constant time. <strong>Moth only listens while it is running.</strong></p>
+
+    <div class="con-grid">
+      <div class="rv">
+        <div class="browsers">
+          <span class="pill">Chrome</span><span class="pill">Edge</span><span class="pill">Brave</span><span class="pill">Opera</span><span class="pill">Vivaldi · MV3 SW</span><span class="pill">Firefox 115+</span>
+        </div>
+        <div class="guide">
+          <svg class="ic"><use href="#i-puzzle"/></svg>
+          <p><b>Guided Chrome setup.</b> Moth creates a folder on your desktop with the unpacked extension and a visual guide — load it once, and every link is one click from the queue.</p>
+        </div>
+      </div>
+      <div class="rv" style="--d:.08s">
+        <div class="mode"><svg class="ic"><use href="#i-link"/></svg><div><b>Send link</b><p>The extension forwards the URL — with Cookie and Referer for that request, so sites behind a login still work.</p></div></div>
+        <div class="mode"><svg class="ic"><use href="#i-down"/></svg><div><b>Hand off</b><p>The browser's own downloads move into the queue, where they belong.</p></div></div>
+        <div class="mode"><svg class="ic"><use href="#i-eye"/></svg><div><b>Watch folder</b><p>Moth quietly watches the browser's downloads folder and picks up what lands there.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= security ======= -->
+<section id="security">
+  <div class="wrap">
+    <div class="eyebrow rv">07 · Security</div>
+    <h2 class="rv" style="--d:.05s">Bounded by design.</h2>
+    <p class="lede rv" style="--d:.1s">The whole attack surface, stated small enough to check.</p>
+    <div class="secv">
+      <div class="secc rv"><svg class="ic"><use href="#i-lock"/></svg><h3>Loopback only</h3><p>The ingest endpoint binds 127.0.0.1 — never 0.0.0.0. A download manager that takes commands from the LAN is a remote code execution vector.</p></div>
+      <div class="secc rv" style="--d:.06s"><svg class="ic"><use href="#i-key"/></svg><h3>Constant-time token</h3><p>32 bytes from a CSPRNG, compared in constant time. Pairing is a shared secret, not a handshake you can guess.</p></div>
+      <div class="secc rv" style="--d:.12s"><svg class="ic"><use href="#i-check"/></svg><h3>Validated payloads</h3><p>Every renderer → engine payload passes a zod schema before anything acts on it.</p></div>
+      <div class="secc rv" style="--d:.18s"><svg class="ic"><use href="#i-folder"/></svg><h3>Contained paths</h3><p>Every path derived from remote data stays inside the download root. A hostile Content-Disposition cannot escape.</p></div>
+      <div class="secc rv" style="--d:.24s"><svg class="ic"><use href="#i-cloudoff"/></svg><h3>No server in the middle</h3><p>File bytes and file metadata never travel through any network service. There is no cloud.</p></div>
+      <div class="secc rv" style="--d:.3s"><svg class="ic"><use href="#i-globe"/></svg><h3>No content policy</h3><p>Moth moves bytes, not judgements. It never inspects, filters or refuses a payload by what it contains — and it never decrypts one.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= cli ======= -->
+<section id="cli">
+  <div class="wrap">
+    <div class="eyebrow rv">08 · CLI</div>
+    <h2 class="rv" style="--d:.05s">Not only a GUI.</h2>
+    <p class="lede rv" style="--d:.1s">A dependency-free core with <span class="mono" style="font-size:14px">download · resume · status · refresh</span> — JSON out. An agent CLI / MCP server drives the same core, with <span class="mono" style="font-size:14px">--root</span> choosing a library root. And a local fault-injection lab serves deterministic payloads on 127.0.0.1 to reproduce every failure on demand:</p>
+
+    <div class="cli-grid">
+      <div class="rv">
+        <div class="faults">
+          <button class="fault" data-fault="drop-once">drop-once</button>
+          <button class="fault" data-fault="no-range">no-range</button>
+          <button class="fault" data-fault="flaky">flaky</button>
+          <button class="fault" data-fault="expired">expired</button>
+          <button class="fault" data-fault="bad-range">bad-range</button>
+          <button class="fault" data-fault="changed-etag">changed-etag</button>
+          <button class="fault" data-fault="stalled">stalled</button>
+          <button class="fault" data-fault="redirect">redirect</button>
+        </div>
+        <div class="cli-notes">
+          <span class="pill">diagnose.ps1</span><span class="pill">repair.ps1</span><span class="pill">in-app diagnostic report</span><span class="pill">no native addons</span>
+        </div>
+      </div>
+      <div class="term rv" style="--d:.08s">
+        <div class="term-h"><i></i><i></i><i></i><span>moth — fault-injection lab</span><b>127.0.0.1:8899</b></div>
+        <div class="term-b" id="termOut"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======= limitations ======= -->
+<section id="limits">
+  <div class="wrap">
+    <div class="eyebrow rv">09 · Limitations</div>
+    <h2 class="rv" style="--d:.05s">Stated plainly.</h2>
+    <p class="lede rv" style="--d:.1s">What Moth won't do — because a product that hides these is worse than one that does.</p>
+    <div class="limv">
+      <div class="lim-item rv"><svg class="ic"><use href="#i-x"/></svg><span><b>BitTorrent is Windows x64 only.</b> No tracker administration, RSS/search, configurable seeding or quotas.</span></div>
+      <div class="lim-item rv"><svg class="ic"><use href="#i-x"/></svg><span><b>HLS / DASH rides on yt-dlp</b> — encrypted-segment support is whatever yt-dlp provides.</span></div>
+      <div class="lim-item rv"><svg class="ic"><use href="#i-x"/></svg><span><b>Protected media is transferred, never decrypted.</b> No key handling, no unwrapping, no licence logic — Moth is a transport, not a decoder.</span></div>
+      <div class="lim-item rv"><svg class="ic"><use href="#i-x"/></svg><span><b>No cookie or session import.</b> Sites behind a login need the extension, which forwards Cookie and Referer for that request.</span></div>
+      <div class="lim-item rv"><svg class="ic"><use href="#i-x"/></svg><span><b>A server that refuses Range can't be resumed</b> — single stream, restart from zero. Labelled up front.</span></div>
+      <div class="lim-item rv"><svg class="ic"><use href="#i-x"/></svg><span><b>No resume when the remote file changed</b> — progress is discarded rather than risking mixed content.</span></div>
+      <div class="lim-item rv"><svg class="ic"><use href="#i-x"/></svg><span><b>The ingest endpoint is IPv4 loopback only</b>, and can only write inside a configured folder.</span></div>
+      <div class="lim-item rv"><svg class="ic"><use href="#i-x"/></svg><span><b>Self-update is Windows-only and unsigned</b> — SmartScreen will complain on first run. macOS and Linux update from the releases page.</span></div>
+      <div class="lim-item rv"><svg class="ic"><use href="#i-x"/></svg><span><b>Recovery re-verification is capped at 512 MB per download;</b> larger downloads are verified by sampling on startup. An advanced setting can change the cap.</span></div>
+      <div class="lim-item rv"><svg class="ic"><use href="#i-x"/></svg><span><b>Multi-threaded transfers cap at 32 connections</b> per download.</span></div>
+      <div class="lim-item rv"><svg class="ic"><use href="#i-x"/></svg><span><b>Tags are written for ID3v2.3 and MP4 only</b> — reading is broader.</span></div>
+      <div class="lim-item rv"><svg class="ic"><use href="#i-x"/></svg><span><b>One default folder plus named library roots</b> — no mirroring, no remote backup.</span></div>
+    </div>
+    <p class="lim-close rv">A product that hides these would be <em>worse</em> than one that does.</p>
+  </div>
+</section>
+
+<!-- ======= themes ======= -->
+<section id="themes">
+  <div class="wrap">
+    <div class="eyebrow rv">10 · Themes</div>
+    <h2 class="rv" style="--d:.05s">Five presets, honestly named.</h2>
+    <p class="lede rv" style="--d:.1s">Graphite, Moth Amber, Midnight, Fieldnotes — or System, which follows your OS. Click one; this entire page changes with it, exactly like the app.</p>
+    <div class="themev rv">
+      <button class="thc on" data-t="graphite"><div class="mini" style="--m-line:rgba(255,255,255,.14);--m-acc:#b9e2f5;--m-ok:#79c493;--m-chunk:rgba(255,255,255,.08);background:#121a2d"><div class="bar"><i></i><i></i><i></i></div><div class="row" style="width:70%"></div><div class="row acc"></div><div class="chunks"><i class="g"></i><i class="g"></i><i class="g"></i><i></i><i></i><i></i></div></div><b>Graphite</b><span>neutral dark — the default</span></button>
+      <button class="thc" data-t="amber"><div class="mini" style="--m-line:rgba(255,215,160,.16);--m-acc:#ecb767;--m-ok:#a9c48a;--m-chunk:rgba(255,225,180,.1);background:#1e150b"><div class="bar"><i></i><i></i><i></i></div><div class="row" style="width:70%"></div><div class="row acc"></div><div class="chunks"><i class="g"></i><i class="g"></i><i class="g"></i><i></i><i></i><i></i></div></div><b>Moth Amber</b><span>warm near-black, lamp-light</span></button>
+      <button class="thc" data-t="midnight"><div class="mini" style="--m-line:rgba(255,255,255,.14);--m-acc:#d3ecf9;--m-ok:#8fd2a6;--m-chunk:rgba(255,255,255,.09);background:#050507"><div class="bar"><i></i><i></i><i></i></div><div class="row" style="width:70%"></div><div class="row acc"></div><div class="chunks"><i class="g"></i><i class="g"></i><i class="g"></i><i></i><i></i><i></i></div></div><b>Midnight</b><span>true black, for OLED</span></button>
+      <button class="thc" data-t="fieldnotes"><div class="mini" style="--m-line:rgba(70,60,38,.18);--m-acc:#3e6b4f;--m-ok:#5d9168;--m-chunk:rgba(62,54,34,.12);background:#faf6eb"><div class="bar"><i></i><i></i><i></i></div><div class="row" style="width:70%"></div><div class="row acc"></div><div class="chunks"><i class="g"></i><i class="g"></i><i class="g"></i><i></i><i></i><i></i></div></div><b>Fieldnotes</b><span>warm paper, forest green</span></button>
+      <button class="thc" data-t="system"><div class="mini" style="--m-line:rgba(128,128,128,.3);--m-acc:#b9e2f5;--m-ok:#79c493;--m-chunk:rgba(128,128,128,.15);background:linear-gradient(135deg,#121a2d 50%,#faf6eb 50%)"><div class="bar"><i></i><i></i><i></i></div><div class="row" style="width:70%"></div><div class="row acc"></div><div class="chunks"><i class="g"></i><i class="g"></i><i class="g"></i><i></i><i></i><i></i></div></div><b>System</b><span>follows the OS</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ======= download ======= -->
+<section id="download">
+  <div class="wrap">
+    <div class="eyebrow rv">11 · Take it home</div>
+    <h2 class="rv" style="--d:.05s">Take it home.</h2>
+    <p class="lede rv" style="--d:.1s">Version 1.0.0 · MIT · by realLLUKS (SKULL) — forks welcome, no CLA. No native addons, no node-gyp, no Visual Studio build tools: a plain <span class="mono" style="font-size:14px">npm install</span> works on a clean machine (Node 22.5+, developed on 24.x).</p>
+
+    <div class="dl-grid">
+      <div class="dlc rv"><div class="os"><svg class="ic"><use href="#i-win"/></svg></div><h3>Windows</h3><div class="fmt">NSIS installer · x64</div><p>Windows 10 and 11. Includes the self-update channel and the bundled Transmission daemon. Unsigned — SmartScreen grumbles once on first run.</p><button class="btn btn-primary" data-dl="Windows installer"><svg class="ic"><use href="#i-down"/></svg>Download installer</button></div>
+      <div class="dlc rv" style="--d:.07s"><div class="os"><svg class="ic"><use href="#i-apple"/></svg></div><h3>macOS</h3><div class="fmt">DMG · macOS 11+</div><p>Drag, mount, done. Updates arrive from the releases page — Restart &amp; install is always an explicit action.</p><button class="btn btn-primary" data-dl="macOS image"><svg class="ic"><use href="#i-down"/></svg>Download DMG</button></div>
+      <div class="dlc rv" style="--d:.14s"><div class="os"><svg class="ic"><use href="#i-tux"/></svg></div><h3>Linux</h3><div class="fmt">AppImage · any desktop environment</div><p>One file, executable, yours. No package manager dance, no build tools, no surprises.</p><button class="btn btn-primary" data-dl="Linux AppImage"><svg class="ic"><use href="#i-down"/></svg>Download AppImage</button></div>
+    </div>
+
+    <div class="dl-strip rv">v1.0.0 · MIT · Electron 44 · React 19 · TypeScript 5.9 · Tailwind 4 · <b>node:sqlite</b> — no prebuilt-binary ABI drift · checksums are on the release page. <b>Verify what you download. Obviously.</b></div>
+  </div>
+</section>
+</main>
+
+<!-- ======= footer ======= -->
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <a class="brand" href="#top"><svg class="moth"><use href="#moth"/></svg>Moth</a>
+        <p class="foot-tag">A download manager whose single promise is that it will not hand you a corrupt file.</p>
+      </div>
+      <div class="foot-right">
+        <a href="#integrity">Integrity</a> · <a href="#engines">Engines</a> · <a href="#flow">Flow</a> · <a href="#cli">CLI</a><br>
+        MIT License · realLLUKS (SKULL) · forks welcome, no CLA<br>
+        v1.0.0 · Windows · macOS · Linux
+      </div>
+    </div>
+    <div class="foot-moth"><svg class="ic"><use href="#i-moon"/></svg>Named for the moth: quiet, nocturnal, and endlessly drawn to the light.</div>
+  </div>
+</footer>
+
+<div id="toast" role="status"><svg class="ic"><use href="#i-check"/></svg><span id="toastMsg"></span></div>
+
+<script>
+(function(){
+'use strict';
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+
+/* ---------- toast ---------- */
+let toastT;
+function toast(msg){
+  $('#toastMsg').textContent=msg;
+  const t=$('#toast'); t.classList.add('on');
+  clearTimeout(toastT); toastT=setTimeout(()=>t.classList.remove('on'),3000);
+}
+
+/* ---------- theme ---------- */
+const mqLight=matchMedia('(prefers-color-scheme: light)');
+let themePref='graphite';
+try{ themePref=localStorage.getItem('moth-theme')||'graphite'; }catch(e){}
+function resolved(t){ return t==='system' ? (mqLight.matches?'fieldnotes':'graphite') : t; }
+function applyTheme(t){
+  themePref=t;
+  document.documentElement.dataset.theme=resolved(t);
+  try{ localStorage.setItem('moth-theme',t); }catch(e){}
+  $$('#themePop button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));
+  $$('.thc').forEach(b=>b.classList.toggle('on',b.dataset.t===t));
+  refreshCols();
+}
+mqLight.addEventListener('change',()=>{ if(themePref==='system') applyTheme('system'); });
+ $$('#themePop button, .thc').forEach(b=>b.addEventListener('click',()=>{
+  const t=b.dataset.t; applyTheme(t);
+  if(b.classList.contains('thc')) toast('Theme applied — '+b.querySelector('b').textContent);
+  themePop.classList.remove('open');
+}));
+const themePop=$('#themePop');
+ $('#themeBtn').addEventListener('click',e=>{ e.stopPropagation(); themePop.classList.toggle('open'); });
+document.addEventListener('click',e=>{ if(!themePop.contains(e.target)) themePop.classList.remove('open'); });
+
+/* ---------- canvas palette ---------- */
+let COL={green:'#8ccba2',amber:'#e5b36b',accent:'#b9e2f5',ink3:'#68738e',fill:'rgba(255,255,255,.03)'};
+function refreshCols(){
+  const cs=getComputedStyle(document.documentElement);
+  COL={ green:cs.getPropertyValue('--green').trim(), amber:cs.getPropertyValue('--amber').trim(),
+        accent:cs.getPropertyValue('--accent').trim(), ink3:cs.getPropertyValue('--ink3').trim() };
+}
+
+/* ---------- nav / reveal ---------- */
+const nav=$('#nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>10),{passive:true});
+const io=new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} }),{threshold:.12});
+ $$('.rv, .steps').forEach(el=>io.observe(el));
+
+/* ---------- sim spotlight ---------- */
+const simCard=$('#simCard');
+simCard.addEventListener('mousemove',e=>{
+  const r=simCard.getBoundingClientRect();
+  simCard.style.setProperty('--mx',(e.clientX-r.left)+'px');
+  simCard.style.setProperty('--my',(e.clientY-r.top)+'px');
+});
+
+/* ============================================================
+   transfer simulator — the ordering rule, live
+   ============================================================ */
+const N=320, CONN=8, LIMIT=52;
+const FILES=[
+  {name:'debian-13.0.0-amd64.iso', size:'2.56 GB', mb:8},
+  {name:'blender-4.5.2-linux-x64.tar.xz', size:'3.84 GB', mb:12},
+  {name:'endeavouros-2025.06.14.iso', size:'1.28 GB', mb:4},
+];
+const grid=$('#simGrid'), cells=[];
+for(let i=0;i<N;i++){ const c=document.createElement('div'); c.className='cell'; grid.appendChild(c); cells.push(c); }
+const st=new Uint8Array(N);
+let state='run', vq=[], workers=[], poison=-1, poisonTimer=null, fi=0, verified=0;
+let disp=0, fillTimes=[], samples=[];
+const T0=performance.now(), BASE=2*3600+41*60+7;
+const clock=()=>{ const s=BASE+((performance.now()-T0)/1000|0);
+  return [s/3600|0, s/60%60|0, s%60].map(v=>String(v|0).padStart(2,'0')).join(':'); };
+const logEl=$('#simLog');
+function log(kind,msg){
+  const d=document.createElement('div'); d.className=kind;
+  d.innerHTML='<span>'+clock()+'</span>'+msg;
+  logEl.appendChild(d);
+  while(logEl.children.length>4) logEl.firstChild.remove();
+}
+function makeWorkers(){
+  workers=Array.from({length:CONN},(_,i)=>({cur:Math.floor(i*N/CONN), carry:Math.random(), stall:0}));
+}
+function nextEmpty(from){
+  for(let k=0;k<N;k++){ const i=(from+k)%N; if(st[i]===0) return i; }
+  return -1;
+}
+function setBtns(){
+  const run=state==='run';
+  $('#btnCut').classList.toggle('off',!run);
+  $('#btnFlip').classList.toggle('off',!run);
+}
+function setup(file){
+  st.fill(0); vq=[]; verified=0; poison=-1; fillTimes=[]; samples=[]; disp=0;
+  clearTimeout(poisonTimer);
+  cells.forEach(c=>c.className='cell');
+  makeWorkers();
+  $('#simName').textContent=file.name;
+  $('#simPart').classList.remove('gone');
+  $('#simSize').textContent=file.size;
+  $('#simPct').textContent='0%';
+  const p=$('#simPill'); p.className='pill g'; p.innerHTML='<span class="dot pulse"></span>Active';
+  logEl.innerHTML='';
+  log('','staged → '+file.name+'.mothpart');
+  log('','range accepted · strong etag · '+CONN+' connections');
+  state='run'; setBtns();
+}
+function cut(){
+  if(state!=='run'){ toast(state==='done'?'It already finished — the next one starts shortly.':'Wait — it\u2019s already recovering.'); return; }
+  state='cut'; setBtns();
+  const act=workers.filter(w=>w.stall<=0).length;
+  log('err','connection lost — '+act+' active streams dropped');
+  // in-flight chunks were never fsync'd: they never happened
+  vq.forEach(e=>{ if(st[e.idx]===1){ st[e.idx]=0; cells[e.idx].classList.remove('f'); } });
+  vq=[];
+  setTimeout(()=>beginSweep('recovery'),1600);
+}
+function flipBit(){
+  if(state!=='run'){ toast(state==='done'?'Too late — this one already verified.':'Wait for it to be downloading again.'); return; }
+  if(poison>=0){ toast('One bit already flipped. Patience.'); return; }
+  const done=[]; for(let i=0;i<N;i++) if(st[i]===2) done.push(i);
+  if(!done.length){ toast('Nothing verified yet — give it a second.'); return; }
+  poison=done[Math.random()*done.length|0];
+  toast('You flipped a bit in chunk '+poison+'. Moth doesn\u2019t know yet.');
+  poisonTimer=setTimeout(()=>{ if(state==='run'&&poison>=0){ log('warn','re-check on disk — digesting completed chunks'); beginSweep(); } },3500);
+}
+function beginSweep(){
+  clearTimeout(poisonTimer);
+  state='sweep'; setBtns();
+  const list=[]; for(let i=0;i<N;i++) if(st[i]===2) list.push(i);
+  if(!list.length){ endSweep(); return; }
+  log('warn','re-digesting '+list.length+' completed chunks');
+  const stepMs=Math.max(2,Math.min(6,1600/list.length));
+  let p=0;
+  (function run(){
+    if(p>=list.length){ endSweep(); return; }
+    const idx=list[p++], c=cells[idx];
+    c.classList.add('chk'); setTimeout(()=>c.classList.remove('chk'),150);
+    if(idx===poison){
+      poison=-1; st[idx]=0; verified--; c.classList.remove('f','ok'); c.classList.add('bad');
+      log('err','chunk '+idx+' digest mismatch — discarded');
+      setTimeout(()=>c.classList.remove('bad'),1200);
+    }
+    setTimeout(run,stepMs);
+  })();
+}
+function endSweep(){
+  log('ok','resume accepted — size + ETag unchanged');
+  state='run'; setBtns();
+}
+function finish(){
+  state='done'; setBtns();
+  $('#simPct').textContent='100%';
+  const p=$('#simPill'); p.className='pill g'; p.innerHTML='<span class="dot"></span>Completed';
+  $('#simPart').classList.add('gone');
+  log('ok','digest matched — fsync ok — renamed');
+  setTimeout(()=>{ fi=(fi+1)%FILES.length; setup(FILES[fi]); },4800);
+}
+function step(dt){
+  if(state==='run'){
+    // random worker stalls — real streams hiccup
+    workers.forEach(w=>{
+      if(w.stall>0){ w.stall-=dt; return; }
+      if(Math.random()<0.004) w.stall=0.6+Math.random()*1.4;
+    });
+    const act=workers.filter(w=>w.stall<=0);
+    act.forEach(w=>{
+      w.carry+=(6.4/CONN)*dt*(0.75+Math.random()*0.5);
+      while(w.carry>=1){
+        w.carry-=1;
+        const idx=nextEmpty(w.cur);
+        if(idx<0) break;
+        w.cur=(idx+1)%N;
+        st[idx]=1; cells[idx].classList.add('f');
+        vq.push({idx,t:performance.now()+90+Math.random()*120});
+        fillTimes.push(performance.now());
+      }
+    });
+    // fsync + digest: only now a chunk becomes verified
+    const now=performance.now();
+    vq=vq.filter(e=>{
+      if(e.t>now) return true;
+      if(st[e.idx]===1){
+        st[e.idx]=2; verified++;
+        const c=cells[e.idx]; c.classList.remove('f'); c.classList.add('ok','pop');
+        setTimeout(()=>c.classList.remove('pop'),550);
+      }
+      return false;
+    });
+    if(verified>=N && poison<0) finish();
+    const done=verified, actN=act.length;
+    $('#simMeta').textContent=done+' / '+N+' chunks · '+actN+' conn · safe resume';
+    $('#sfConn').textContent=actN+' conn';
+    $('#simPct').textContent=Math.round(done/N*100)+'%';
+    samples.push(0); // placeholder replaced below
+  } else {
+    samples.push(0);
+  }
+  // throughput target from writes in the last 1.2 s
+  const now=performance.now();
+  while(fillTimes.length&&now-fillTimes[0]>1200) fillTimes.shift();
+  const target=(state==='run')?(fillTimes.length*FILES[fi].mb/1.2)*(0.97+Math.random()*0.06):0;
+  disp+=(target-disp)*0.12;
+  samples[samples.length-1]=disp;
+  if(samples.length>160) samples.shift();
+  $('#simSpd').textContent=(disp>=10?disp.toFixed(1):disp.toFixed(2))+' MB/s';
+}
+const cv=$('#simCv'), ctx=cv.getContext('2d');
+function drawGraph(){
+  const dpr=devicePixelRatio||1, w=cv.clientWidth, h=cv.clientHeight;
+  if(cv.width!==w*dpr){ cv.width=w*dpr; cv.height=h*dpr; }
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  ctx.clearRect(0,0,w,h);
+  const ymax=60, X=i=>i/(160-1)*w, Y=v=>h-4-(v/ymax)*(h-10);
+  // limit line
+  ctx.strokeStyle=COL.amber; ctx.globalAlpha=.55; ctx.setLineDash([4,4]); ctx.lineWidth=1;
+  ctx.beginPath(); ctx.moveTo(0,Y(LIMIT)); ctx.lineTo(w,Y(LIMIT)); ctx.stroke();
+  ctx.setLineDash([]); ctx.globalAlpha=1;
+  ctx.font='9px "JetBrains Mono",monospace'; ctx.fillStyle=COL.amber; ctx.globalAlpha=.8;
+  ctx.fillText('limit 52 MB/s',w-84,Y(LIMIT)-4); ctx.globalAlpha=1;
+  // trace
+  if(samples.length>1){
+    ctx.beginPath();
+    samples.forEach((v,i)=>{ i?ctx.lineTo(X(i+(160-samples.length)),Y(v)):ctx.moveTo(X(i+(160-samples.length)),Y(v)); });
+    ctx.strokeStyle=COL.green; ctx.lineWidth=1.6; ctx.stroke();
+    ctx.lineTo(w,h); ctx.lineTo(X(160-samples.length),h); ctx.closePath();
+    const g=ctx.createLinearGradient(0,0,0,h);
+    g.addColorStop(0,COL.green+'33'); g.addColorStop(1,COL.green+'00');
+    ctx.fillStyle=g; ctx.fill();
+  }
+  ctx.fillStyle=COL.ink3;
+  ctx.fillText('last 16 s',8,12);
+}
+ $('#btnCut').addEventListener('click',cut);
+ $('#btnFlip').addEventListener('click',flipBit);
+
+let simVisible=true, last=performance.now(), acc=0;
+new IntersectionObserver(es=>{ simVisible=es[0].isIntersecting; }).observe(simCard);
+function loop(t){
+  requestAnimationFrame(loop);
+  let dt=(t-last)/1000; last=t;
+  if(!simVisible) return;
+  if(dt>0.25) dt=0.25;
+  acc+=dt;
+  while(acc>=0.1){ step(0.1); acc-=0.1; }
+  drawGraph();
+  const up=1410+((performance.now()-T0)/1000|0);
+  $('#sfUp').textContent='up '+Math.floor(up/60)+'m '+(up%60)+'s';
+}
+setup(FILES[0]);
+requestAnimationFrame(loop);
+
+/* ============================================================
+   flow mode recreation
+   ============================================================ */
+const FC=[
+  {v:2,  rate:.9,  spd:776,  unit:'KB/s', type:'t', sz:'95.4 MB'},
+  {v:1,  rate:1.7, spd:542,  unit:'KB/s', type:'h', total:2233},
+  {v:59, rate:2.6, spd:183,  unit:'KB/s', type:'m', sz:'482 MB'},
+];
+const CIRC=194.8;
+function fmtSpd(kbps){ return kbps>=1024 ? (kbps/1024).toFixed(1)+' MB/s' : kbps.toFixed(1)+' KB/s'; }
+let flowVisible=false, flowHold=[0,0,0];
+new IntersectionObserver(es=>{ flowVisible=es[0].isIntersecting; },{}).observe($('#flowStage'));
+setInterval(()=>{
+  if(!flowVisible) return;
+  let total=0, active=0;
+  FC.forEach((c,i)=>{
+    if(c.v>=100){ // completed → hold, then restart
+      flowHold[i]++;
+      if(flowHold[i]>4){ c.v=0; flowHold[i]=0; document.querySelectorAll('.fcard')[i].classList.remove('done'); }
+    } else {
+      c.v=Math.min(100,c.v+c.rate*(0.6+Math.random()*0.8));
+      c.spd*=0.97+Math.random()*0.06;
+    }
+    const card=document.querySelectorAll('.fcard')[i], done=c.v>=100;
+    card.classList.toggle('done',done);
+    $('#fpct'+i).textContent=Math.floor(c.v)+'%';
+    $('#fring'+i).style.strokeDashoffset=CIRC*(1-c.v/100);
+    const speed=done?'—':fmtSpd(c.spd);
+    let foot;
+    if(c.type==='t') foot=speed+' · Transmission · '+c.sz;
+    else if(c.type==='m') foot=speed+' · yt-dlp · '+c.sz;
+    else foot=done?'renamed — verified':speed+' · '+Math.floor(c.v/100*c.total)+' / '+c.total+' chunks verified';
+    $('#ffoot'+i).innerHTML=(done?'<em>'+foot+'</em>':foot);
+    if(!done){ total+=c.spd; active++; }
+  });
+  const pill=$('#flowPill');
+  pill.innerHTML='<span class="dot pulse"></span>'+fmtSpd(total)+' · 3 files · '+active+' active';
+},900);
+ $('#flowReset').addEventListener('click',()=>{ FC.forEach(c=>{c.v=0}); flowHold=[0,0,0]; toast('Flow reset — three transfers, fresh from the gateway.'); });
+ $$('.fcard').forEach((card,i)=>{
+  const path=$('#fp'+i);
+  card.addEventListener('mouseenter',()=>path.classList.add('hot'));
+  card.addEventListener('mouseleave',()=>path.classList.remove('hot'));
+});
+
+/* ============================================================
+   engines: tabs, file map, pipeline, pieces
+   ============================================================ */
+ $$('.tab').forEach(t=>t.addEventListener('click',()=>{
+  $$('.tab').forEach(x=>x.classList.remove('on')); t.classList.add('on');
+  $$('.ep').forEach(p=>p.classList.toggle('on',p.dataset.panel===t.dataset.tab));
+}));
+// file map: 8 range-connection fronts growing across one file
+const fmap=$('#fmap'); const fspans=[];
+for(let i=0;i<8;i++){
+  const s=document.createElement('span'); s.className='fs c'+(i%4);
+  fmap.appendChild(s);
+  fspans.push({el:s,left:Math.random()*70,target:8+Math.random()*18,w:0});
+}
+setInterval(()=>{
+  if(!$('#engines').classList.contains('rv')||!fmap.offsetParent) return;
+  fspans.forEach(f=>{
+    if(f.w<f.target){ f.w=Math.min(f.target,f.w+0.35); f.el.style.width=f.w+'%'; }
+  });
+},40);
+setInterval(()=>{
+  fspans.forEach(f=>{ f.left=Math.random()*(92-f.target); f.w=0; f.el.style.left=f.left+'%'; f.el.style.width='0%'; });
+},9000);
+// media pipeline walker
+const pn=$$('[data-pn]'); let pni=0;
+setInterval(()=>{ pn.forEach(n=>n.classList.remove('on')); pn[pni%pn.length].classList.add('on'); pni++; },1100);
+// piece grid
+const pg=$('#pgrid'), pgc=[];
+for(let i=0;i<60;i++){ const c=document.createElement('i'); pg.appendChild(c); pgc.push(c); }
+setInterval(()=>{
+  const empty=pgc.filter(c=>!c.classList.contains('f'));
+  if(empty.length){ empty[Math.random()*empty.length|0].classList.add('f'); }
+  else { setTimeout(()=>pgc.forEach(c=>c.classList.remove('f')),1200); }
+},180);
+// torrent per-file selection
+ $$('.tfile input').forEach(inp=>inp.addEventListener('change',()=>{
+  const all=$$('.tfile input');
+  const n=all.filter(i=>i.checked).length;
+  const mb=all.reduce((a,i)=>a+(i.checked?parseFloat(i.closest('.tfile').querySelector('.sz').textContent):0),0);
+  $('#tselSum').textContent=n+' of '+all.length+' files selected · '+mb.toFixed(1)+' MB';
+}));
+
+/* ============================================================
+   library filter + toggles
+   ============================================================ */
+ $$('#cats .cat').forEach(c=>c.addEventListener('click',()=>{
+  $$('#cats .cat').forEach(x=>x.classList.remove('on')); c.classList.add('on');
+  const f=c.dataset.f;
+  $$('#flist .frow2').forEach(r=>r.classList.toggle('hide',f!=='all'&&r.dataset.cat!==f));
+}));
+ $$('.tgl').forEach(t=>t.addEventListener('click',()=>{
+  t.classList.toggle('on');
+  t.setAttribute('aria-checked',t.classList.contains('on'));
+}));
+
+/* ============================================================
+   terminal + fault lab
+   ============================================================ */
+const out=$('#termOut'); const tq=[]; let typing=false;
+function tl(txt,cls,speed){ tq.push({txt,cls,speed:speed||10}); pump(); }
+async function pump(){
+  if(typing) return; typing=true;
+  while(tq.length){
+    const {txt,cls,speed}=tq.shift();
+    const d=document.createElement('div'); d.className='tl '+cls;
+    const caret=document.createElement('i'); caret.className='caret';
+    d.appendChild(caret); out.appendChild(d);
+    for(let i=0;i<txt.length;i++){
+      caret.before(document.createTextNode(txt[i]));
+      if(i%2) await wait(speed);
+      out.scrollTop=out.scrollHeight;
+    }
+    caret.remove();
+    await wait(130);
+    while(out.children.length>15) out.firstChild.remove();
+  }
+  typing=false;
+}
+const FAULTS={
+  'drop-once':'connection dropped after 64 KiB — retried, resumed at offset, no corruption',
+  'no-range':'server ignores Range — labelled no resume up front, single stream',
+  'flaky':'every 3rd read stalls — backoff + retry, digest still checks out',
+  'expired':'link 403 — refreshed; 187 / 320 chunks kept (size + ETag match)',
+  'bad-range':'server returns wrong offsets — digest mismatch, chunk discarded',
+  'changed-etag':'If-Range rejected — partial discarded rather than stitched',
+  'stalled':'stream idle 12 s — connection recycled, chunk reassigned',
+  'redirect':'5 hops followed — final host pinned before resuming',
+};
+ $$('.fault').forEach(b=>b.addEventListener('click',()=>{
+  tl('$ lab serve --fault '+b.dataset.fault,'c',16);
+  tl('  127.0.0.1:8899 · deterministic payload — '+FAULTS[b.dataset.fault],'o',4);
+}));
+let termStarted=false;
+new IntersectionObserver((es,o)=>{
+  if(es[0].isIntersecting&&!termStarted){
+    termStarted=true; o.disconnect();
+    (async()=>{
+      tl('$ moth download https://mirror.example.org/debian-13.0.0-amd64.iso','c',14);
+      await wait(400);
+      tl('  → ranges accepted · strong etag · resume ok','g',5);
+      tl('  → 12 connections · gcra limit 24 MB/s','o',5);
+      tl('  → 320 chunks · staged → debian-13.0.0-amd64.iso.mothpart','o',5);
+      await wait(500);
+      tl('$ moth status --json','c',14);
+      await wait(300);
+      tl('{ "engine":"http", "chunks_total":320, "chunks_verified":187,','o',3);
+      tl('  "rate_bps":25165824, "safe_resume":true }','o',3);
+      await wait(600);
+      tl('# pick a fault on the left — every failure mode, on demand','a',6);
+    })();
+  }
+},{threshold:.3}).observe($('#cli'));
+
+/* ---------- download buttons ---------- */
+ $$('[data-dl]').forEach(b=>b.addEventListener('click',()=>{
+  toast(b.dataset.dl+' — this page is a companion piece; v1.0.0 ships from the GitHub releases page.');
+}));
+
+applyTheme(themePref);
+refreshCols();
+})();
+</script>
+</body>
+</html>

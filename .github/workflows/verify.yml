@@ -1,0 +1,30 @@
+# Runs the headless part of `npm run verify` on every push and PR.
+#
+# The E2E smoke test and the ingest check are deliberately NOT here: they
+# launch the real Electron binary and need an interactive desktop. Run them
+# locally with `npm run verify` before cutting a release.
+name: verify
+
+on:
+  push:
+  pull_request:
+
+# Read-only by default. This workflow runs on `pull_request`, so without this a
+# token from a forked PR inherits the repository's default permissions.
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run test:extension
+      - run: npx electron-vite build

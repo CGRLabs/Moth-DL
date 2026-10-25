@@ -1,0 +1,49 @@
+# Dependencies
+node_modules/
+
+# Build output
+/out/
+/dist/
+
+# Packaged applications produced by electron-builder (multi-GB)
+/release/
+
+# Scratch space: screenshots, logs, throwaway browser profiles, test fixtures
+/tmp/
+
+# TypeScript incremental build cache
+*.tsbuildinfo
+
+# The bundled Transmission runtime is downloaded and extracted by
+# `npm run prepare:transmission`. Only the .gitkeep markers are tracked.
+/resources/transmission/cache/
+/resources/transmission/source/*
+!/resources/transmission/source/.gitkeep
+/resources/transmission/win-x64/*
+!/resources/transmission/win-x64/.gitkeep
+
+# Generated browser-extension packaging artifacts. The signing key is never in
+# the repo; it lives at %APPDATA%\moth-dlm\extension-key\.
+/browser-extension/*.crx
+/browser-extension/extension-id.txt
+
+# Local editor settings. Personal preference, referenced by nothing.
+/.vscode/
+
+# Local environment overrides. `.env.example` stays tracked.
+/.env
+/.env.*
+!/.env.example
+*.local
+
+# Logs and local database files
+*.log
+*.db
+*.db-wal
+*.db-shm
+*.db-journal
+
+# OS noise
+.DS_Store
+Thumbs.db
+desktop.ini

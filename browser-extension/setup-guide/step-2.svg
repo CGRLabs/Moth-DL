@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="390" viewBox="0 0 900 390" role="img" aria-labelledby="title desc">
+  <title id="title">Turn on Developer mode</title>
+  <desc id="desc">Illustration of Chrome's extensions page with Developer mode enabled and the Load unpacked button highlighted.</desc>
+  <rect width="900" height="390" rx="18" fill="#edf2ef"/>
+  <rect x="24" y="24" width="852" height="342" rx="14" fill="#fff" stroke="#cbd6ce" stroke-width="2"/>
+  <text x="58" y="85" font-family="Segoe UI,Arial,sans-serif" font-size="25" font-weight="700" fill="#18231d">Extensions</text>
+  <text x="680" y="73" font-family="Segoe UI,Arial,sans-serif" font-size="14" fill="#3c4b42">Developer mode</text>
+  <rect x="804" y="54" width="48" height="26" rx="13" fill="#466f53"/>
+  <circle cx="837" cy="67" r="10" fill="#fff"/>
+  <rect x="58" y="112" width="784" height="1" fill="#e1e8e3"/>
+  <rect x="58" y="138" width="128" height="38" rx="7" fill="#466f53"/>
+  <text x="122" y="162" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="14" font-weight="650" fill="#fff">Load unpacked</text>
+  <rect x="198" y="138" width="128" height="38" rx="7" fill="#eef3ef" stroke="#d1ddd4"/>
+  <text x="262" y="162" text-anchor="middle" font-family="Segoe UI,Arial,sans-serif" font-size="14" fill="#34443a">Pack extension</text>
+  <rect x="58" y="207" width="784" height="110" rx="12" fill="#f7f9f8" stroke="#dce5df"/>
+  <text x="84" y="249" font-family="Segoe UI,Arial,sans-serif" font-size="17" font-weight="650" fill="#25342b">Developer controls are ready</text>
+  <text x="84" y="278" font-family="Segoe UI,Arial,sans-serif" font-size="14" fill="#627168">Click Load unpacked to choose Moth's extension folder.</text>
+  <path d="M756 93 793 111" stroke="#466f53" stroke-width="3"/><path d="m781 113 14 1-5-13" fill="none" stroke="#466f53" stroke-width="3"/>
+  <text x="622" y="126" font-family="Segoe UI,Arial,sans-serif" font-size="13" font-weight="700" fill="#466f53">turn this on</text>
+</svg>

@@ -1,0 +1,154 @@
+# Builds and publishes releases.
+#
+# Support tiers are encoded in the tag:
+#
+#   v1.2.0            -> Windows x64 only, as a normal release.
+#   v1.2.0-alpha.1    -> Windows x64 + macOS + Linux, as a pre-release.
+#
+# Windows is the supported platform: it is the only one whose package bundles
+# the Transmission daemon, so it is the only one where BitTorrent works. macOS
+# and Linux builds are early - expect rough edges, and note that without
+# signing secrets configured they will be unsigned.
+#
+# Trigger with:  git tag v1.0.0 && git push origin v1.0.0
+name: release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to build and publish'
+        required: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    name: Plan
+    runs-on: ubuntu-latest
+    outputs:
+      platforms: ${{ steps.plan.outputs.platforms }}
+      prerelease: ${{ steps.plan.outputs.prerelease }}
+      note: ${{ steps.plan.outputs.note }}
+    steps:
+      - id: plan
+        env:
+          TAG: ${{ inputs.tag || github.ref_name }}
+        run: |
+          if echo "$TAG" | grep -qiE 'alpha|beta|rc'; then
+            echo 'platforms=["windows-latest","macos-latest","ubuntu-22.04"]' >> "$GITHUB_OUTPUT"
+            echo 'prerelease=true' >> "$GITHUB_OUTPUT"
+            echo 'note=Early build. Windows x64 is the supported platform; macOS and Linux are alpha and may be unsigned.' >> "$GITHUB_OUTPUT"
+          else
+            echo 'platforms=["windows-latest"]' >> "$GITHUB_OUTPUT"
+            echo 'prerelease=false' >> "$GITHUB_OUTPUT"
+            echo 'note=Windows x64 is the supported platform for this release. BitTorrent requires the bundled Transmission runtime, which ships on Windows only. See the README limitations for what macOS and Linux do not support.' >> "$GITHUB_OUTPUT"
+          fi
+
+  build:
+    name: ${{ matrix.label }}
+    needs: plan
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            label: Windows x64
+            artifact: windows-installer
+          - os: macos-latest
+            label: macOS
+            artifact: macos-dmg
+          - os: ubuntu-22.04
+            label: Linux
+            artifact: linux-appimage
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      # Keep a matrix entry that this tag did not ask for from doing any work.
+      - name: Skip platforms not in this release
+        if: ${{ !contains(fromJSON(needs.plan.outputs.platforms), matrix.os) }}
+        run: echo "Skipping ${{ matrix.label }} for this tag."; exit 0
+
+      - uses: actions/checkout@v4
+        if: ${{ contains(fromJSON(needs.plan.outputs.platforms), matrix.os) }}
+
+      - uses: actions/setup-node@v4
+        if: ${{ contains(fromJSON(needs.plan.outputs.platforms), matrix.os) }}
+        with:
+          node-version: 24
+          cache: npm
+
+      # electron-builder needs more heap than the runner defaults to.
+      - name: Configure Node options
+        if: ${{ contains(fromJSON(needs.plan.outputs.platforms), matrix.os) }}
+        run: echo "NODE_OPTIONS=--max-old-space-size=4096" >> "$GITHUB_ENV"
+
+      - name: Install dependencies
+        if: ${{ contains(fromJSON(needs.plan.outputs.platforms), matrix.os) }}
+        run: npm ci
+
+      - name: Build
+        if: ${{ contains(fromJSON(needs.plan.outputs.platforms), matrix.os) }}
+        env:
+          # Optional. Without these the build still succeeds; the artifact is
+          # simply unsigned and macOS GateScreen or Windows SmartScreen warns.
+          CSC_LINK: ${{ secrets.MACOS_CSC_LINK }}
+          CSC_KEY_PASSWORD: ${{ secrets.MACOS_CSC_KEY_PASSWORD }}
+          APPLE_ID: ${{ secrets.APPLE_ID }}
+          APPLE_APP_SPECIFIC_PASSWORD: ${{ secrets.APPLE_APP_SPECIFIC_PASSWORD }}
+          APPLE_TEAM_ID: ${{ secrets.APPLE_TEAM_ID }}
+        run: npm run dist
+
+      - name: Collect artifacts
+        if: ${{ contains(fromJSON(needs.plan.outputs.platforms), matrix.os) }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: |
+            release/**/*.exe
+            release/**/*.dmg
+            release/**/*.AppImage
+            release/**/*.blockmap
+            release/latest*.yml
+          if-no-files-found: error
+          retention-days: 14
+
+  publish:
+    name: Publish release
+    needs: [plan, build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: dist
+          merge-multiple: true
+
+      - name: Publish
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ inputs.tag || github.ref_name }}
+          prerelease: ${{ needs.plan.outputs.prerelease == 'true' }}
+          body: ${{ needs.plan.outputs.note }}
+          append_body: true
+          generate_release_notes: true
+          fail_on_unmatched_files: false
+          files: |
+            dist/**/*.exe
+            dist/**/*.dmg
+            dist/**/*.AppImage
+            dist/**/*.blockmap
+            dist/latest*.yml

@@ -1,0 +1,30 @@
+{
+  "manifest_version": 3,
+  "name": "Moth Download Manager",
+  "version": "1.1.4",
+  "description": "Send browser downloads to Moth Download Manager so they can be paused, resumed and retried.",
+  "minimum_chrome_version": "102",
+  "permissions": ["downloads", "contextMenus", "storage", "notifications", "activeTab", "alarms"],
+  "host_permissions": ["http://127.0.0.1/*"],
+  "background": {
+    "service_worker": "service-worker.js"
+  },
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Moth Download Manager"
+  },
+  "options_page": "popup.html",
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": ["metaText.js", "pageMeta.js", "mediaProbe.js", "badge.js", "transferPolicy.js", "badgePrefs.js", "content.js"],
+      "run_at": "document_idle",
+      "all_frames": false
+    }
+  ],
+  "icons": {
+    "16": "icon16.png",
+    "48": "icon48.png",
+    "128": "icon128.png"
+  }
+}

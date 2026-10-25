@@ -1,0 +1,64 @@
+name: Feature request
+description: Suggest a capability or change an existing one
+title: ''
+labels: enhancement
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: >
+        What were you trying to do that Moth cannot do today? Describing the
+        situation works better than describing a solution.
+      placeholder: I download an ISO and a group of files at once and cannot tell at a glance which one is starving the others.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What you would like to happen
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: What you have tried instead
+      description: Including other tools is genuinely useful context.
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Which area
+    options:
+      - Transfers / scheduling
+      - Integrity / checksums / resume
+      - File organisation and categories
+      - Browser integration
+      - BitTorrent
+      - Media (yt-dlp / tags / artwork)
+      - Interface
+      - CLI or MCP / agent tooling
+      - Packaging or documentation
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives-considered
+    attributes:
+      label: If this is a fork-sized change
+      description: >
+        Larger ideas are welcome, and so are forks — see CONTRIBUTING.md. If you
+        have already started, link the fork here.
+      placeholder: https://github.com/yourname/Moth-DL
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I read the Limitations section of the README first.
+          required: false
+        - label: This is not asking to bypass DRM or break encryption.
+          required: true

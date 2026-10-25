@@ -1,0 +1,90 @@
+name: Bug report
+description: Something behaves differently from what the README or UI promises
+title: ''
+labels: bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for filing this. The two most useful things are **how you
+        installed or ran it** and **what you expected instead**, so please fill
+        those in even if you skip the rest.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What did you see? Include the exact wording of any error.
+      placeholder: The download stopped and the row showed "Checksum mismatch".
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected instead
+      placeholder: I expected it to keep the completed ranges and re-download only the bad chunk.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Starting from a fresh launch is ideal.
+      placeholder: |
+        1. Add <URL> at 0 B/s
+        2. Wait for the first chunk to complete
+        3. Pause and resume
+    validations:
+      required: true
+
+  - type: dropdown
+    id: version
+    attributes:
+      label: Version
+      description: Shown at the bottom right of the window.
+    options:
+      - 1.0.0
+      - A local build from source (npm run dev)
+      - Something older / not sure
+    validations:
+      required: true
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Operating system
+    options:
+      - Windows
+      - macOS
+      - Linux
+    validations:
+      required: true
+
+  - type: input
+    id: transfer-type
+    attributes:
+      label: Transfer type
+      description: Rough split is fine.
+      placeholder: HTTP / torrent / yt-dlp media / browser extension
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log lines
+      description: >
+        Set the log level to debug or trace in Settings, reproduce, then paste
+        the matching records. Logs are newline-delimited JSON.
+        URL query strings and credentials are already redacted.
+      render: text
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checks
+      options:
+        - label: I searched existing issues for this already.
+          required: true
+        - label: I did not paste any passkey, tracker credential, or personal token.
+          required: false
