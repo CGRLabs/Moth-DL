@@ -6,6 +6,7 @@
 <meta name="color-scheme" content="dark light">
 <meta name="description" content="Moth Download Manager — a desktop download manager whose single promise is that it will not hand you a corrupt file.">
 <title>Moth Download Manager — it will not hand you a corrupt file</title>
+<link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="%230e1322"/><text x="32" y="45" font-family="monospace" font-size="34" font-weight="bold" fill="%23b9e2f5" text-anchor="middle">M</text></svg>'>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -99,7 +100,7 @@ body::after{
 }
 ::selection{background:color-mix(in srgb, var(--accent) 30%, transparent)}
 .wrap{max-width:1180px; margin:0 auto; padding:0 28px}
-section{padding:104px 0; scroll-margin-top:88px; position:relative}
+section{padding:66px 0; scroll-margin-top:88px; position:relative}
 a{color:var(--accent); text-decoration:none}
 button{font:inherit; color:inherit; background:none; border:none; cursor:pointer}
 :focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:6px}
@@ -113,9 +114,11 @@ svg.ic{width:1em; height:1em; stroke:currentColor; fill:none; stroke-width:1.8; 
 }
 .eyebrow::before{content:""; width:26px; height:1px; background:var(--accent); opacity:.6}
 h1,h2,h3{font-family:"Space Grotesk",sans-serif; letter-spacing:-.02em; font-weight:600}
-h2{font-size:clamp(30px,4.3vw,46px); line-height:1.08; max-width:640px}
-.lede{color:var(--ink2); max-width:660px; margin-top:18px; font-size:17px}
+h2{font-size:clamp(26px,3.5vw,38px); line-height:1.1; max-width:640px}
+.lede{color:var(--ink2); max-width:660px; margin-top:13px; font-size:16px}
 .lede strong, .lede b{color:var(--ink); font-weight:500}
+.lede a{color:var(--accent); text-decoration:underline; text-underline-offset:3px}
+.lede a:hover{color:var(--accent2)}
 
 /* ============ reveal ============ */
 .rv{opacity:0; transform:translateY(24px); transition:opacity .8s cubic-bezier(.2,.7,.2,1), transform .8s cubic-bezier(.2,.7,.2,1); transition-delay:var(--d,0s)}
@@ -179,7 +182,7 @@ nav.scrolled{background:var(--glass); backdrop-filter:blur(16px) saturate(1.3); 
 @keyframes pulse{50%{opacity:.3}}
 
 /* ============ hero ============ */
-.hero{padding:158px 0 100px; position:relative; overflow:hidden}
+.hero{padding:124px 0 72px; position:relative; overflow:hidden}
 .hero::before{
   content:""; position:absolute; inset:0; pointer-events:none;
   background:
@@ -189,12 +192,12 @@ nav.scrolled{background:var(--glass); backdrop-filter:blur(16px) saturate(1.3); 
   mask-image:radial-gradient(900px 600px at 30% 20%, #000 20%, transparent 75%);
   opacity:.5;
 }
-.hero-grid{display:grid; grid-template-columns:.92fr 1.08fr; gap:56px; align-items:center; position:relative}
-.hero h1{font-size:clamp(38px,5.4vw,64px); line-height:1.04}
+.hero-grid{display:grid; grid-template-columns:.92fr 1.08fr; gap:44px; align-items:center; position:relative}
+.hero h1{font-size:clamp(34px,4.7vw,56px); line-height:1.05}
 .hero h1 .u{text-decoration:underline wavy color-mix(in srgb,var(--red) 55%,transparent); text-decoration-thickness:3px; text-underline-offset:9px}
-.hero .lede{font-size:17.5px; margin-top:22px}
-.hero-cta{display:flex; gap:14px; margin-top:34px; flex-wrap:wrap}
-.hero-strip{margin-top:38px; font:500 11px "JetBrains Mono"; letter-spacing:.1em; color:var(--ink3); display:flex; flex-wrap:wrap; gap:8px 0; text-transform:uppercase}
+.hero .lede{font-size:16.5px; margin-top:18px}
+.hero-cta{display:flex; gap:14px; margin-top:26px; flex-wrap:wrap}
+.hero-strip{margin-top:28px; font:500 11px "JetBrains Mono"; letter-spacing:.1em; color:var(--ink3); display:flex; flex-wrap:wrap; gap:8px 0; text-transform:uppercase}
 .hero-strip span{padding-right:14px; margin-right:14px; border-right:1px solid var(--line)}
 .hero-strip span:last-child{border:none}
 
@@ -238,7 +241,7 @@ nav.scrolled{background:var(--glass); backdrop-filter:blur(16px) saturate(1.3); 
 .sim-foot{margin-top:12px; font:400 10.5px "JetBrains Mono"; color:var(--ink3); letter-spacing:.04em; display:flex; gap:14px; flex-wrap:wrap}
 
 /* ============ integrity ============ */
-.steps{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:52px}
+.steps{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:30px}
 .step{position:relative; border:1px solid var(--line); border-radius:20px; padding:24px; background:var(--panel)}
 .step .n{font:600 13px "JetBrains Mono"; color:var(--accent); letter-spacing:.14em}
 .step h3{font-size:19px; margin:12px 0 8px}
@@ -251,24 +254,24 @@ nav.scrolled{background:var(--glass); backdrop-filter:blur(16px) saturate(1.3); 
 .steps.in .step:nth-child(2){animation-delay:.5s}
 .steps.in .step:nth-child(3){animation-delay:1s}
 @keyframes lit{0%{border-color:var(--accent2); box-shadow:0 0 0 1px var(--accent2), 0 0 30px color-mix(in srgb,var(--accent) 25%,transparent)} 100%{border-color:var(--line); box-shadow:none}}
-.gcards{display:grid; grid-template-columns:1fr 1fr; gap:18px; margin-top:18px}
+.gcards{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:14px}
 .gcard{border:1px solid var(--line); border-radius:20px; padding:24px; background:var(--panel); transition:border-color .25s, transform .25s}
 .gcard:hover{border-color:var(--line2); transform:translateY(-2px)}
 .gcard .gi{width:38px; height:38px; border-radius:11px; border:1px solid var(--line2); display:grid; place-items:center; color:var(--accent); font-size:17px; margin-bottom:16px}
 .gcard h3{font-size:17.5px; margin-bottom:8px}
 .gcard p{color:var(--ink2); font-size:14.5px}
 .gcard p code{font:500 12px "JetBrains Mono"; color:var(--ink); background:var(--panel2); padding:2px 6px; border-radius:6px}
-.istats{display:grid; grid-template-columns:repeat(4,1fr); gap:18px; margin-top:44px}
+.istats{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:28px}
 .istat{border-top:1px solid var(--line); padding-top:18px}
 .istat b{font:600 34px "Space Grotesk"; letter-spacing:-.03em; color:var(--accent)}
 .istat span{display:block; color:var(--ink2); font-size:13.5px; margin-top:4px}
 
 /* ============ engines ============ */
-.tabs{display:inline-flex; gap:4px; padding:4px; border:1px solid var(--line); border-radius:999px; background:var(--panel); margin-top:40px}
+.tabs{display:inline-flex; gap:4px; padding:4px; border:1px solid var(--line); border-radius:999px; background:var(--panel); margin-top:24px}
 .tab{padding:9px 20px; border-radius:999px; font:600 14px "Space Grotesk"; color:var(--ink2); transition:.2s}
 .tab.on{background:var(--panel2); color:var(--ink); box-shadow:inset 0 0 0 1px var(--line2)}
 .ep{display:none; margin-top:36px}
-.ep.on{display:grid; grid-template-columns:1.02fr .98fr; gap:52px; align-items:start; animation:fadeUp .5s cubic-bezier(.2,.7,.2,1)}
+.ep.on{display:grid; grid-template-columns:1.02fr .98fr; gap:38px; align-items:start; animation:fadeUp .5s cubic-bezier(.2,.7,.2,1)}
 @keyframes fadeUp{from{opacity:0; transform:translateY(14px)}}
 .ep h3{font-size:24px; margin-bottom:14px}
 .blist{list-style:none; margin-top:6px}
@@ -360,7 +363,7 @@ nav.scrolled{background:var(--glass); backdrop-filter:blur(16px) saturate(1.3); 
 .quote .who{margin-top:22px; font:500 11px "JetBrains Mono"; letter-spacing:.2em; color:var(--ink3); text-transform:uppercase}
 
 /* ============ control bento ============ */
-.bento{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:52px}
+.bento{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:30px}
 .bcard{border:1px solid var(--line); border-radius:20px; padding:24px; background:var(--panel); transition:transform .3s cubic-bezier(.34,1.3,.4,1), border-color .3s}
 .bcard:hover{transform:translateY(-3px); border-color:var(--line2)}
 .bcard.wide{grid-column:span 2}
@@ -390,7 +393,7 @@ nav.scrolled{background:var(--glass); backdrop-filter:blur(16px) saturate(1.3); 
 .moonline{font:500 13px "JetBrains Mono"; color:var(--amber); display:flex; align-items:center; gap:8px}
 
 /* ============ library ============ */
-.lib-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:22px; margin-top:52px}
+.lib-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:20px; margin-top:30px}
 .panel{border:1px solid var(--line); border-radius:22px; background:var(--panel); padding:22px}
 .cats{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:18px}
 .cat{display:inline-flex; align-items:center; gap:7px; border:1px solid var(--line); border-radius:99px; padding:7px 13px; font:500 12px "Space Grotesk"; color:var(--ink2); transition:.2s}
@@ -415,7 +418,7 @@ nav.scrolled{background:var(--glass); backdrop-filter:blur(16px) saturate(1.3); 
 .root .cnt{margin-left:auto; font:500 11px "JetBrains Mono"; color:var(--ink2)}
 
 /* ============ connect / security ============ */
-.con-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:24px; margin-top:52px; align-items:start}
+.con-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:22px; margin-top:30px; align-items:start}
 .browsers{display:flex; gap:8px; flex-wrap:wrap; margin:22px 0}
 .mode{display:flex; gap:14px; border:1px solid var(--line); border-radius:16px; padding:18px; background:var(--panel); margin-bottom:12px}
 .mode .ic{color:var(--accent); font-size:17px; margin-top:2px}
@@ -425,7 +428,7 @@ nav.scrolled{background:var(--glass); backdrop-filter:blur(16px) saturate(1.3); 
 .guide .ic{color:var(--accent); font-size:17px; margin-top:2px}
 .guide p{font-size:13.5px; color:var(--ink2)}
 .guide b{color:var(--ink)}
-.secv{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:52px}
+.secv{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:30px}
 .secc{border:1px solid var(--line); border-radius:20px; padding:24px; background:var(--panel); transition:.25s}
 .secc:hover{border-color:var(--line2); transform:translateY(-2px)}
 .secc .ic{color:var(--accent); font-size:19px; margin-bottom:14px}
@@ -433,7 +436,7 @@ nav.scrolled{background:var(--glass); backdrop-filter:blur(16px) saturate(1.3); 
 .secc p{color:var(--ink2); font-size:13.5px}
 
 /* ============ cli ============ */
-.cli-grid{display:grid; grid-template-columns:.9fr 1.1fr; gap:44px; margin-top:52px; align-items:start}
+.cli-grid{display:grid; grid-template-columns:.9fr 1.1fr; gap:38px; margin-top:30px; align-items:start}
 .faults{display:flex; gap:8px; flex-wrap:wrap; margin-top:22px}
 .fault{font:500 11.5px "JetBrains Mono"; border:1px solid var(--line2); border-radius:99px; padding:7px 14px; color:var(--ink2); transition:.2s}
 .fault:hover{border-color:var(--accent); color:var(--ink); background:color-mix(in srgb,var(--accent) 8%,transparent)}
@@ -453,20 +456,20 @@ nav.scrolled{background:var(--glass); backdrop-filter:blur(16px) saturate(1.3); 
 .cli-notes{display:flex; gap:8px; flex-wrap:wrap; margin-top:18px}
 
 /* ============ limits ============ */
-.limv{display:grid; grid-template-columns:1fr 1fr; gap:0 40px; margin-top:52px}
+.limv{display:grid; grid-template-columns:1fr 1fr; gap:0 34px; margin-top:28px}
 .lim-item{display:flex; gap:14px; padding:16px 0; border-bottom:1px dashed color-mix(in srgb,var(--line) 80%,transparent)}
 .lim-item .ic{color:var(--amber); font-size:15px; margin-top:4px}
 .lim-item b{color:var(--ink); font-weight:500}
 .lim-item span{color:var(--ink2); font-size:14px}
-.lim-close{text-align:center; margin-top:52px; font:500 17px "Space Grotesk"; color:var(--ink2)}
+.lim-close{text-align:center; margin-top:30px; font:500 17px "Space Grotesk"; color:var(--ink2)}
 .lim-close em{color:var(--accent); font-style:normal}
 
 /* ============ themes ============ */
-.themev{display:grid; grid-template-columns:repeat(5,1fr); gap:16px; margin-top:52px}
-.thc{text-align:left; border:1px solid var(--line); border-radius:20px; padding:14px; background:var(--panel); transition:.25s; display:block; width:100%}
+.themev{display:grid; grid-template-columns:repeat(5,1fr); gap:12px; margin-top:28px}
+.thc{text-align:left; border:1px solid var(--line); border-radius:20px; padding:11px; background:var(--panel); transition:.25s; display:block; width:100%}
 .thc:hover{transform:translateY(-3px); border-color:var(--line2)}
 .thc.on{border-color:var(--accent); box-shadow:0 0 0 1px var(--accent)}
-.thc .mini{height:104px; border-radius:13px; border:1px solid var(--line); padding:12px; display:flex; flex-direction:column; gap:8px; overflow:hidden}
+.thc .mini{height:68px; border-radius:13px; border:1px solid var(--line); padding:10px; display:flex; flex-direction:column; gap:6px; overflow:hidden}
 .thc .mini .bar{display:flex; gap:4px}
 .thc .mini .bar i{width:6px; height:6px; border-radius:99px; background:var(--m-line)}
 .thc .mini .row{height:8px; border-radius:4px; background:var(--m-line)}
@@ -478,7 +481,7 @@ nav.scrolled{background:var(--glass); backdrop-filter:blur(16px) saturate(1.3); 
 .thc span{display:block; font-size:12px; color:var(--ink3); margin:0 2px}
 
 /* ============ download ============ */
-.dl-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:52px}
+.dl-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:30px}
 .dlc{border:1px solid var(--line); border-radius:22px; padding:28px; background:var(--panel); display:flex; flex-direction:column; transition:.25s}
 .dlc:hover{border-color:var(--line2); transform:translateY(-3px)}
 .dlc .os{width:44px; height:44px; border-radius:13px; border:1px solid var(--line2); display:grid; place-items:center; color:var(--accent); font-size:20px; margin-bottom:18px}
@@ -488,15 +491,17 @@ nav.scrolled{background:var(--glass); backdrop-filter:blur(16px) saturate(1.3); 
 .dlc .btn{margin-top:22px; justify-content:center}
 .dl-strip{margin-top:34px; border:1px dashed var(--line2); border-radius:16px; padding:18px 22px; font:400 12px/2 "JetBrains Mono"; color:var(--ink2); text-align:center}
 .dl-strip b{color:var(--accent); font-weight:500}
+.dl-strip code{font-family:"JetBrains Mono";color:var(--ink);background:var(--panel2);padding:3px 7px;border-radius:6px;word-break:break-all}
 .dl-note{text-align:center; margin-top:18px; font-size:13.5px; color:var(--ink3)}
 .dl-note b{color:var(--ink2); font-weight:500}
 
 /* ============ footer ============ */
-footer{border-top:1px solid var(--line); padding:56px 0 44px; margin-top:40px}
+footer{border-top:1px solid var(--line); padding:42px 0 34px; margin-top:24px}
 .foot{display:flex; align-items:flex-start; gap:30px; flex-wrap:wrap}
 .foot .brand{font-size:18px}
 .foot .brand .moth{width:30px; height:30px}
 .foot-tag{color:var(--ink2); font-size:14px; margin-top:10px; max-width:340px}
+.foot-tag a{color:var(--accent); text-decoration:underline; text-underline-offset:3px}
 .foot-right{margin-left:auto; text-align:right; font:400 12px/2 "JetBrains Mono"; color:var(--ink3)}
 .foot-right a{color:var(--ink2)}
 .foot-moth{margin-top:34px; font-size:13px; color:var(--ink3); display:flex; gap:10px; align-items:center}
@@ -524,7 +529,7 @@ footer{border-top:1px solid var(--line); padding:56px 0 44px; margin-top:40px}
 }
 @media (max-width:760px){
   .nav-links{display:none}
-  section{padding:76px 0}
+  section{padding:46px 0}
   .steps{grid-template-columns:1fr}
   .step::after{display:none}
   .gcards,.limv,.dl-grid,.bento{grid-template-columns:1fr}
@@ -540,11 +545,26 @@ footer{border-top:1px solid var(--line); padding:56px 0 44px; margin-top:40px}
   .sim-actions .hint{display:none}
   .foot-right{margin-left:0; text-align:left}
 }
+/* ---- narrow-screen robustness -------------------------------------------
+   A 1fr grid track defaults to min-content; dense flex rows in #library used
+   to force the whole document wider than the viewport on phones. */
+@media (max-width:1020px){
+  .lib-grid{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:760px){
+  .lib-grid,.panel,.rootc,.root,.frow2,.cats{min-width:0}
+  .frow2 b,.frow2 .rt,.frow2 .sz{min-width:0}
+  .root{flex-wrap:wrap}
+  .nav-in{padding:0 16px;gap:10px}
+  .nav-right{gap:8px}
+  .foot-tag a{word-break:break-word}
+}
 @media (prefers-reduced-motion: reduce){
   .wan,.fcard{animation:none}
   html{scroll-behavior:auto}
 }
 </style>
+<noscript><style>.rv,.steps{opacity:1 !important;transform:none !important}</style></noscript>
 </head>
 <body>
 
@@ -633,7 +653,7 @@ footer{border-top:1px solid var(--line); padding:56px 0 44px; margin-top:40px}
       <h1 class="rv" style="--d:.06s">It will not hand you a <span class="u">corrupt file</span>.</h1>
       <p class="lede rv" style="--d:.12s">Most managers track one byte counter — and hope it reached the disk. Moth tracks a <strong>bitmap of verified byte ranges</strong>, committed only after the bytes are fsync'd. If a source can't be verified, Moth restarts it rather than risk the file.</p>
       <div class="hero-cta rv" style="--d:.18s">
-        <a class="btn btn-primary" href="#download"><svg class="ic"><use href="#i-down"/></svg>Download for your platform</a>
+        <a class="btn btn-primary" href="#download"><svg class="ic"><use href="#i-down"/></svg>Download for Windows</a>
         <a class="btn btn-ghost" href="#integrity">See the ordering rule</a>
       </div>
       <div class="hero-strip rv" style="--d:.24s">
@@ -1040,20 +1060,20 @@ footer{border-top:1px solid var(--line); padding:56px 0 44px; margin-top:40px}
   </div>
 </section>
 
-<!-- ======= download ======= -->
+<!-- ======= download / availability ======= -->
 <section id="download">
   <div class="wrap">
-    <div class="eyebrow rv">11 · Take it home</div>
+    <div class="eyebrow rv">11 · Availability</div>
     <h2 class="rv" style="--d:.05s">Take it home.</h2>
-    <p class="lede rv" style="--d:.1s">Version 1.0.0 · MIT · by realLLUKS (SKULL) — forks welcome, no CLA. No native addons, no node-gyp, no Visual Studio build tools: a plain <span class="mono" style="font-size:14px">npm install</span> works on a clean machine (Node 22.5+, developed on 24.x).</p>
+    <p class="lede rv" style="--d:.1s">Moth 1.0.0 is released under MIT. This build is <b>Windows x64</b> — the only platform where the bundled Transmission daemon ships, so the only one where BitTorrent works. The installer is <b>unsigned</b>, so SmartScreen will grumble once on first run. Verify it before you trust it: the SHA-256 is below and in the release notes.</p>
 
     <div class="dl-grid">
-      <div class="dlc rv"><div class="os"><svg class="ic"><use href="#i-win"/></svg></div><h3>Windows</h3><div class="fmt">NSIS installer · x64</div><p>Windows 10 and 11. Includes the self-update channel and the bundled Transmission daemon. Unsigned — SmartScreen grumbles once on first run.</p><button class="btn btn-primary" data-dl="Windows installer"><svg class="ic"><use href="#i-down"/></svg>Download installer</button></div>
-      <div class="dlc rv" style="--d:.07s"><div class="os"><svg class="ic"><use href="#i-apple"/></svg></div><h3>macOS</h3><div class="fmt">DMG · macOS 11+</div><p>Drag, mount, done. Updates arrive from the releases page — Restart &amp; install is always an explicit action.</p><button class="btn btn-primary" data-dl="macOS image"><svg class="ic"><use href="#i-down"/></svg>Download DMG</button></div>
-      <div class="dlc rv" style="--d:.14s"><div class="os"><svg class="ic"><use href="#i-tux"/></svg></div><h3>Linux</h3><div class="fmt">AppImage · any desktop environment</div><p>One file, executable, yours. No package manager dance, no build tools, no surprises.</p><button class="btn btn-primary" data-dl="Linux AppImage"><svg class="ic"><use href="#i-down"/></svg>Download AppImage</button></div>
+      <div class="dlc rv"><div class="os"><svg class="ic"><use href="#i-win"/></svg></div><h3>Windows</h3><div class="fmt">NSIS installer · x64 · ~123 MB</div><p>Windows 10 and 11. Includes the self-update channel and the bundled Transmission daemon. Unsigned — SmartScreen grumbles once on first run.</p><a class="btn btn-primary" href="https://github.com/CGRLabs/Moth-DL/releases/download/v1.0.0/Moth.Download.Manager-1.0.0-Setup.exe" rel="noopener"><svg class="ic"><use href="#i-down"/></svg>Download installer</a></div>
+      <div class="dlc rv" style="--d:.07s"><div class="os"><svg class="ic"><use href="#i-apple"/></svg></div><h3>macOS</h3><div class="fmt">DMG · macOS 11+ · not in v1.0.0</div><p>macOS is planned but not part of this release. <a href="/#contact">Ask us for a build</a> and we will tell you honestly where it stands.</p><a class="btn btn-ghost" href="/#contact">Request macOS build</a></div>
+      <div class="dlc rv" style="--d:.14s"><div class="os"><svg class="ic"><use href="#i-tux"/></svg></div><h3>Linux</h3><div class="fmt">AppImage · any desktop environment · not in v1.0.0</div><p>Linux is planned but not part of this release. <a href="/#contact">Ask us for a build</a> and we will tell you honestly where it stands.</p><a class="btn btn-ghost" href="/#contact">Request Linux build</a></div>
     </div>
 
-    <div class="dl-strip rv">v1.0.0 · MIT · Electron 44 · React 19 · TypeScript 5.9 · Tailwind 4 · <b>node:sqlite</b> — no prebuilt-binary ABI drift · checksums are on the release page. <b>Verify what you download. Obviously.</b></div>
+    <div class="dl-strip rv">v1.0.0 · MIT · Electron 44 · React 19 · TypeScript 5.9 · Tailwind 4 · <b>node:sqlite</b> — no prebuilt-binary ABI drift. <b>SHA-256</b> <code>b0e336bf13fdce41daf95f406a6238ee98f2507be5db69e15830ed56b8fffbf9</code> · <b>Verify what you download. Obviously.</b></div>
   </div>
 </section>
 </main>
@@ -1064,11 +1084,12 @@ footer{border-top:1px solid var(--line); padding:56px 0 44px; margin-top:40px}
     <div class="foot">
       <div>
         <a class="brand" href="#top"><svg class="moth"><use href="#moth"/></svg>Moth</a>
-        <p class="foot-tag">A download manager whose single promise is that it will not hand you a corrupt file.</p>
+        <p class="foot-tag">A download manager whose single promise is that it will not hand you a corrupt file. <a href="/">Built by CGRLabs ↗</a></p>
       </div>
       <div class="foot-right">
-        <a href="#integrity">Integrity</a> · <a href="#engines">Engines</a> · <a href="#flow">Flow</a> · <a href="#cli">CLI</a><br>
-        MIT License · realLLUKS (SKULL) · forks welcome, no CLA<br>
+        <a href="#integrity">Integrity</a> · <a href="#engines">Engines</a> · <a href="#flow">Flow</a> · <a href="#control">Control</a> · <a href="#library">Library</a> · <a href="#cli">CLI</a> · <a href="#limits">Limits</a><br>
+        <a href="/">CGRLabs ↗</a> · <a href="/portfolio">Portfolio ↗</a> · <a href="/#contact">Contact ↗</a> · <a href="https://github.com/CGRLabs" target="_blank" rel="noopener">GitHub ↗</a> · <a href="https://github.com/CGRLabs/Moth-DL/releases/tag/v1.0.0" target="_blank" rel="noopener">Release v1.0.0 ↗</a><br>
+        MIT-licensed · realLLUKS (SKULL) · source and releases are public<br>
         v1.0.0 · Windows · macOS · Linux
       </div>
     </div>
@@ -1491,11 +1512,8 @@ new IntersectionObserver((es,o)=>{
   }
 },{threshold:.3}).observe($('#cli'));
 
-/* ---------- download buttons ---------- */
- $$('[data-dl]').forEach(b=>b.addEventListener('click',()=>{
-  toast(b.dataset.dl+' — this page is a companion piece; v1.0.0 ships from the GitHub releases page.');
-}));
-
+/* Availability links are real anchors to the CGRLabs contact section now —
+   no placeholder download buttons and no misleading "releases page" toast. */
 applyTheme(themePref);
 refreshCols();
 })();
